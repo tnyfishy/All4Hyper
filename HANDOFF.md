@@ -5,7 +5,7 @@ Người dùng nói tiếng Việt. Trả lời bằng tiếng Việt, ngắn g�
 ## Mục tiêu
 Một module LSPosed (libxposed API 102) cho Xiaomi HyperOS, kèm app cài đặt Material 3 Expressive. Làm theo ba yêu cầu liên tiếp của người dùng:
 1. Hook của MeowPower (`io.github.yuhj319.meowpower`) cho **Security Center** (`com.miui.securitycenter`), mỗi hook một công tắc.
-2. Giao diện Material 3 (tham khảo m3.material.io và `bug-bit/NzHelper`): card, chip, button, thanh điều hướng nổi, animation loading.
+2. Giao diện Material 3 (tham khảo m3.material.io và `bug-bit/NzHelper`): card, chip, button, thanh điều hướng M3 chuẩn ở đáy, animation loading; có chủ đề AMOLED (đen thuần) và tiêu đề đậm/lớn.
 3. Thẻ **Google**, lấy từ XGoogle (`Leekin2/XGoogle`): nhấn giữ nút nguồn → Gemini/Trợ lý, nhấn giữ thanh điều hướng → Circle to Search, gỡ hạn chế GMS (kèm Quick Share), dịch trực tiếp.
 
 ## Trạng thái repo
@@ -13,13 +13,13 @@ Một module LSPosed (libxposed API 102) cho Xiaomi HyperOS, kèm app cài đặ
 - Commit mang tên `tnyfishy <tnyfishy@users.noreply.github.com>`; không có dòng ghi công nào khác.
 
 ## Cấu trúc `all4hyper/`
-- `app/src/main/java/.../hooks/`: hook Security Center viết lại từ đầu (`HookKit`, `ChargeHooks`, `SystemHooks`, `NetworkHooks`, `HealthTextHook`). `Config.java` (khóa cài đặt), `HookSettings.java` (đọc cài đặt mỗi lần gọi).
+- `app/src/main/java/.../hooks/`: hook Security Center viết lại từ đầu (`HookKit`, `SystemHooks`, `NetworkHooks`); hook sạc và sức khỏe pin đã bị bỏ theo yêu cầu. `Config.java` (khóa cài đặt), `HookSettings.java` (đọc cài đặt mỗi lần gọi).
 - `app/src/main/kotlin/.../google/` và `.../java/.../google/`: hook Google lấy từ XGoogle, đã đổi package, bỏ các route ColorOS (`oplus.*`). Nối dây tự viết: `GoogleEntry.kt`, `GoogleSystemHooks.kt`, `GoogleFeatures.java`, `SystemCompat.java`, `LspConfig.kt`. Cài hook chỉ khi công tắc bật.
 - `app/src/main/kotlin/.../`: `Connection.kt` (dịch vụ LSPosed + scope), `Root.kt`, `CompanionModule.kt` (cài/đọc companion, đổi phím qua root), `Store.kt`, `MainActivity.kt`.
-- `app/src/main/kotlin/.../ui/`: `Theme`, `Components`, `NavBar` (thanh nổi bám theo pager), 5 trang: Home, Charging, System, Google, Settings.
+- `app/src/main/kotlin/.../ui/`: `Theme`, `Components`, `NavBar` (NavigationBar M3), 4 trang: Home, System, Google, Settings.
 - `companion/` + `build-companion.py` → `app/src/main/assets/coogle-companion.zip`: bản sao companion của XGoogle (id `coogle_companion`), chỉ khác 3 file: thêm cờ `/data/adb/coogle_power_off` trong `boot-completed.sh`, dọn cờ trong `uninstall.sh`, `module.prop` (versionCode 132).
 - `NOTICE.txt`, `README.md`: nguồn gốc và giấy phép.
-- Phiên bản hiện tại: `0.5.0` (versionCode 6). **Quy tắc: mỗi lần build APK mới phải tăng `versionCode` (+1) và `versionName` trong `app/build.gradle` trước khi build/đẩy lên `main`, để người dùng cập nhật đè được lên bản cũ.** `applicationId io.github.tnyfishy.all4hyper`, minSdk 35, chỉ arm64-v8a (DexKit).
+- Phiên bản hiện tại: `0.6.0` (versionCode 7). **Quy tắc: mỗi lần build APK mới phải tăng `versionCode` (+1) và `versionName` trong `app/build.gradle` trước khi build/đẩy lên `main`, để người dùng cập nhật đè được lên bản cũ.** `applicationId io.github.tnyfishy.all4hyper`, minSdk 35, chỉ arm64-v8a (DexKit).
 
 ## Quyết định quan trọng
 - **MeowPower không có LICENSE** và app của nó có trang kêu gọi ủng hộ. Hook của All4Hyper dùng cùng lớp/hàm đích nhưng viết lại, không sao chép. README và màn hình "Giới thiệu" ghi nguồn.

@@ -34,6 +34,8 @@ object CompanionModule {
     private const val ASSET = "coogle-companion.zip"
     private const val BACKUP = "/data/adb/coogle_keys_backup"
     private const val GOOGLE = "launch_google_search"
+    private const val GOOGLE_APP = "com.google.android.googlequicksearchbox"
+    private const val ASSISTANT_ROLE = "android.app.role.ASSISTANT"
 
     /** A key the companion sets at boot, with the marker file that tells it to leave the key alone. */
     enum class Key(val setting: String, val marker: String, val backupField: String) {
@@ -99,15 +101,23 @@ object CompanionModule {
     }
 
     /**
-     * Gives the key to Google or hands it back. The marker is written whether or not the companion
-     * is installed yet, so its first boot respects a switch that is already off. The user's own
-     * choice, saved by the companion at boot, is put back when the switch is turned off.
+     * Gives the key to Google or hands it back. Giving it takes effect at once, whether or not the
+     * companion has ever booted: the user's own choice is saved first (the same file, in the same
+     * format, as the companion's boot script, which then leaves it alone) so that turning the
+     * switch off can put it back. The marker is written whether or not the companion is installed
+     * yet, so its first boot respects a switch that is already off.
      */
     suspend fun applyKey(key: Key, enabled: Boolean): Boolean {
         val script = if (enabled) {
-            "rm -f ${key.marker} && if [ -f $BACKUP ]; then settings put system ${key.setting} $GOOGLE; fi"
+            "rm -f ${key.marker}; " +
+                "if [ ! -f $BACKUP ]; then " +
+                "power=\$(settings get system long_press_power_key); home=\$(settings get system long_press_home_key); " +
+                "[ \"\$power\" = $GOOGLE ] && power=launch_voice_assistant; " +
+                "[ \"\$home\" = $GOOGLE ] && home=launch_xiaoai_screen_identification; " +
+                "printf 'power=%s\\nhome=%s\\n' \"\$power\" \"\$home\" > $BACKUP; fi; " +
+                "settings put system ${key.setting} $GOOGLE"
         } else {
-            "touch ${key.marker} && if [ -f $BACKUP ] && " +
+            "touch ${key.marker}; if [ -f $BACKUP ] && " +
                 "[ \"\$(settings get system ${key.setting})\" = $GOOGLE ]; then " +
                 "v=\$(sed -n 's/^${key.backupField}=//p' $BACKUP); " +
                 "if [ -z \"\$v\" ] || [ \"\$v\" = null ]; then settings delete system ${key.setting}; " +
@@ -115,4 +125,16 @@ object CompanionModule {
         }
         return Root.run(script, timeoutSeconds = 20).ok
     }
+
+    /**
+     * The power key only opens Google's assistant while Google holds the assistant role, so the role
+     * is given to Google (when it is installed and does not hold it yet). Best effort: a ROM that
+     * refuses leaves the choice to the user, in the default apps page the tab links to.
+     */
+    suspend fun ensureAssistantRole(): Boolean = Root.run(
+        "pm path $GOOGLE_APP > /dev/null 2>&1 || exit 0; " +
+            "cmd role get-role-holders --user 0 $ASSISTANT_ROLE 2>/dev/null | grep -q $GOOGLE_APP || " +
+            "cmd role add-role-holder --user 0 $ASSISTANT_ROLE $GOOGLE_APP 0",
+        timeoutSeconds = 20,
+    ).ok
 }

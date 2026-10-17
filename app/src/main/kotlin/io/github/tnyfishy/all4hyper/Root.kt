@@ -16,6 +16,18 @@ object Root {
     /** Stops every process of the package so the hooks and the new settings load on its next start. */
     suspend fun restart(packageName: String): Boolean = run("am force-stop $packageName").ok
 
+    /** SystemUI is a persistent app, so the system starts it again at once. */
+    suspend fun restartSystemUi(): Boolean = run(
+        "pid=\$(pidof com.android.systemui); " +
+            "if [ -n \"\$pid\" ]; then kill -9 \$pid; else am force-stop com.android.systemui; fi",
+    ).ok
+
+    /** Ends system_server, so Android restarts the whole framework (a soft reboot) without a power cycle. */
+    suspend fun softReboot(): Boolean = run(
+        "pid=\$(pidof system_server); " +
+            "if [ -n \"\$pid\" ]; then kill -9 \$pid; else setprop ctl.restart zygote; fi",
+    ).ok
+
     suspend fun run(script: String, timeoutSeconds: Long = DEFAULT_TIMEOUT_SECONDS): Result = withContext(Dispatchers.IO) {
         var process: Process? = null
         try {

@@ -17,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -47,7 +48,7 @@ fun LazyListScope.settingsPage(store: Store, appearance: Appearance) {
                 title = stringResource(R.string.lang_title),
                 summary = null,
                 options = listOf(R.string.lang_vi, R.string.lang_en).map { stringResource(it) },
-                selected = Language.supported.indexOf(Language.current(context)),
+                selected = Language.supported.indexOf(Language.current(LocalConfiguration.current)),
                 enabled = true,
                 onSelect = { Language.set(context, Language.supported[it]) },
             )
@@ -55,7 +56,7 @@ fun LazyListScope.settingsPage(store: Store, appearance: Appearance) {
             ChoiceRow(
                 title = stringResource(R.string.mode_title),
                 summary = null,
-                options = listOf(R.string.mode_system, R.string.mode_light, R.string.mode_dark).map { stringResource(it) },
+                options = listOf(R.string.mode_system, R.string.mode_light, R.string.mode_dark, R.string.mode_amoled).map { stringResource(it) },
                 selected = appearance.mode.ordinal,
                 enabled = true,
                 onSelect = { appearance.mode = Appearance.Mode.entries[it] },

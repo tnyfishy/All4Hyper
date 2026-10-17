@@ -2,10 +2,7 @@ package io.github.tnyfishy.all4hyper.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.runtime.Composable
@@ -14,13 +11,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import io.github.tnyfishy.all4hyper.Store
 
-/** A scrolling page whose last item can scroll clear of the floating navigation bar. */
+private val PagePadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 16.dp)
+
+/** A scrolling page; the scaffold already keeps it clear of the navigation bar. */
 @Composable
 fun Page(content: LazyListScope.() -> Unit) {
-    val bottom = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding() + FloatingBarHeight
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = bottom),
+        contentPadding = PagePadding,
         verticalArrangement = Arrangement.spacedBy(12.dp),
         content = content,
     )

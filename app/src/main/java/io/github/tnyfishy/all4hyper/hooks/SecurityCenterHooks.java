@@ -7,10 +7,8 @@ import io.github.libxposed.api.XposedModule;
 public final class SecurityCenterHooks {
     public static void install(XposedModule module, ClassLoader loader, SharedPreferences prefs) {
         HookKit kit = new HookKit(module, loader, prefs);
-        ChargeHooks.install(kit);
         SystemHooks.install(kit);
         NetworkHooks.install(kit);
-        HealthTextHook.install(kit);
     }
 
     private SecurityCenterHooks() { }

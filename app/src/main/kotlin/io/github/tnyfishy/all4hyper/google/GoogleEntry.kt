@@ -28,12 +28,14 @@ object GoogleEntry {
         if (nav) XiaoAiNavRedirectHooks.hookSystem(loader)
     }
 
-    /** SystemUI (Quick Share tile) and XiaoAi (nav-handle redirect). */
+    /**
+     * SystemUI (Quick Share tile) and XiaoAi (nav-handle redirect). The Quick Share hooks check the
+     * GMS switch on every call, so they are always installed and need no restart to take effect.
+     */
     @JvmStatic fun hookPackage(packageName: String, loader: ClassLoader) {
         if (!SystemCompat.isHyperOs()) return
         when (packageName) {
-            AssistantRuntime.SYSTEM_UI_PACKAGE ->
-                if (GoogleFeatures.enabled(Config.GOOGLE_GMS)) QuickShareTileHooks.install(loader)
+            AssistantRuntime.SYSTEM_UI_PACKAGE -> QuickShareTileHooks.install(loader)
             XiaoAiNavRedirectHooks.XIAOAI_PACKAGE ->
                 if (GoogleFeatures.enabled(Config.GOOGLE_NAV)) XiaoAiNavRedirectHooks.install(loader)
         }

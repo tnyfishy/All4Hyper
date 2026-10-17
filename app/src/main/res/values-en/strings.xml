@@ -1,89 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">All4Hyper</string>
-    <string name="module_description">Free up Xiaomi HyperOS Security Center: charging, power, permissions and network limits.</string>
+    <string name="module_description">Free up Xiaomi HyperOS Security Center: power, permissions and network limits, plus Google features.</string>
 
     <string name="nav_home">Home</string>
-    <string name="nav_charging">Charging</string>
     <string name="nav_system">System</string>
     <string name="nav_settings">Settings</string>
 
     <!-- Home -->
     <string name="home_connecting">Connecting to LSPosed…</string>
     <string name="home_active">Active</string>
-    <string name="home_active_detail">Security Center is hooked. Changes apply right away.</string>
     <string name="home_no_scope">Scope missing</string>
     <string name="home_no_scope_detail">Add Security Center to this module\'s scope in LSPosed.</string>
     <string name="home_inactive">Not active</string>
     <string name="home_inactive_detail">Enable All4Hyper in LSPosed, then open it again.</string>
-    <string name="status_title">Status</string>
-    <string name="status_lsposed">LSPosed</string>
-    <string name="status_lsposed_ready">%1$s · API %2$d</string>
-    <string name="status_lsposed_missing">Not connected</string>
-    <string name="status_scope">Security Center scope</string>
-    <string name="status_scope_ok">Included</string>
-    <string name="status_scope_missing">Not in scope</string>
-    <string name="status_root">Root</string>
-    <string name="status_root_checking">Checking…</string>
-    <string name="status_root_granted">Granted</string>
-    <string name="status_root_denied">Not available. Restarting needs root.</string>
-    <string name="master_title">Master switch</string>
-    <string name="master_summary">Turns every hook on or off at once.</string>
-    <string name="warning_title">Use with care</string>
-    <string name="warning_body">These hooks change how Security Center protects the device. Lifting AppOps restrictions and install verification lowers protection, so turn on only what you need.</string>
 
-    <string name="action_restart">Restart Security Center</string>
+    <string name="action_restart">Restart</string>
     <string name="action_restarting">Restarting…</string>
-    <string name="action_recheck">Re-check</string>
     <string name="action_add_scope">Add scope</string>
-    <string name="action_save">Save</string>
-    <string name="action_clear">Clear</string>
-    <string name="msg_restarted">Security Center restarted</string>
+    <string name="msg_restarted">Restarted</string>
     <string name="msg_restart_failed">Could not restart. Check root access.</string>
     <string name="msg_saved">Saved</string>
     <string name="msg_scope_requested">Approve the request in the LSPosed notification</string>
     <string name="msg_scope_failed">The scope request was not approved</string>
-    <string name="msg_not_connected">Not connected to LSPosed, nothing can be saved</string>
 
     <!-- Charging -->
-    <string name="card_night">Night charge protection</string>
-    <string name="t_night_entry">Block the overnight hold (entry)</string>
-    <string name="t_night_entry_s">Stops night charge protection from starting, so charging is no longer held at 80%.</string>
-    <string name="t_night_state">Block the overnight hold (state)</string>
-    <string name="t_night_state_s">Refuses the low-level night charging state, as a second layer.</string>
-    <string name="card_limit">Charge limit</string>
-    <string name="t_kill_all">Block every protection strategy</string>
-    <string name="t_kill_all_s">Night, navigation, always, handle, high temperature and long charge, all at once.</string>
-    <string name="t_kill_common">Block common protection</string>
-    <string name="t_kill_common_s">High temperature, navigation and long charge limits stop applying.</string>
-    <string name="t_override_limit">Override the limit</string>
-    <string name="t_override_limit_s">Rewrites the limit Security Center sets. 100% means no limit.</string>
-    <string name="limit_title">Limit</string>
-    <string name="limit_value">%1$d%%</string>
-    <string name="limit_unlimited">No limit</string>
-    <string name="card_fast">Fast charge and more</string>
-    <string name="fast_title">Fast charge</string>
-    <string name="fast_summary">Forcing it on cannot help hardware that does not support it.</string>
-    <string name="fast_stock">Stock</string>
-    <string name="fast_on">Force on</string>
-    <string name="fast_off">Force off</string>
-    <string name="bypass_title">Bypass charging</string>
-    <string name="bypass_summary">Only blocks the automatic switch; it never forces bypass on.</string>
-    <string name="bypass_stock">Stock</string>
-    <string name="bypass_block_start">Block start</string>
-    <string name="bypass_block_stop">Block stop</string>
-    <string name="t_pogo">Block pogo dock protection</string>
-    <string name="t_pogo_s">Stops the dock charge limit from turning on.</string>
-    <string name="t_wireless">Turn off silent wireless charging</string>
-    <string name="t_wireless_s">Restores full wireless charging power.</string>
-    <string name="card_health">Battery health</string>
-    <string name="t_fake_health">Fake the health level</string>
-    <string name="t_fake_health_s">Security Center reports the level chosen below.</string>
-    <string name="health_level_title">Level reported</string>
-    <string name="health_level_summary">1 is the worst, 4 the best.</string>
-    <string name="health_text_title">Health text</string>
-    <string name="health_text_hint">For example 100%</string>
-    <string name="health_text_summary">Replaces the health percentage on the charge protection page. Leave empty to keep the real value.</string>
 
     <!-- System -->
     <string name="card_power">Power and performance</string>
@@ -174,10 +115,12 @@
     <string name="g_live">Live translate</string>
     <string name="g_live_s">In Circle to Search, tap Translate and keep translating as you scroll.</string>
 
-    <string name="card_scopes">LSPosed scopes</string>
-    <string name="scopes_info">Each feature works only in the scopes shown on its card. Apps can be requested here; the system framework must be ticked in LSPosed by hand, followed by a reboot.</string>
-    <string name="action_request_scopes">Request missing scopes</string>
-    <string name="scopes_complete">Every scope the turned-on features need is in place.</string>
-    <string name="g_overlap_note">Do not turn on the same features in XGoogle at the same time: both modules would hook the same places.</string>
     <string name="g_set_assistant">Set the default digital assistant</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="restart_security_center">Security Center</string>
+    <string name="restart_system_ui">System UI</string>
+    <string name="restart_system">System</string>
+    <string name="restart_system_title">Restart the system?</string>
+    <string name="restart_system_message">Android restarts its software (a soft reboot): the screen goes dark for a moment and every app is closed. No data is lost.</string>
+    <string name="mode_amoled">AMOLED</string>
 </resources>

@@ -8,18 +8,6 @@ import io.github.tnyfishy.all4hyper.R
 data class Toggle(val key: String, @StringRes val title: Int, @StringRes val summary: Int)
 
 object Features {
-    val nightCharge = listOf(
-        Toggle(Config.KILL_NIGHT_ENTRY, R.string.t_night_entry, R.string.t_night_entry_s),
-        Toggle(Config.KILL_NIGHT_STATE, R.string.t_night_state, R.string.t_night_state_s),
-    )
-    val chargeLimit = listOf(
-        Toggle(Config.KILL_ALL_PROTECT, R.string.t_kill_all, R.string.t_kill_all_s),
-        Toggle(Config.KILL_COMMON_PROTECT, R.string.t_kill_common, R.string.t_kill_common_s),
-    )
-    val chargeExtras = listOf(
-        Toggle(Config.KILL_POGO, R.string.t_pogo, R.string.t_pogo_s),
-        Toggle(Config.KILL_WIRELESS_SILENCE, R.string.t_wireless, R.string.t_wireless_s),
-    )
     val power = listOf(
         Toggle(Config.KILL_POWER_MODE, R.string.t_power_mode, R.string.t_power_mode_s),
         Toggle(Config.KILL_SUPER_SAVE, R.string.t_super_save, R.string.t_super_save_s),
@@ -44,17 +32,4 @@ object Features {
     val googleVibrate = Toggle(Config.GOOGLE_CIRCLE_VIBRATE, R.string.g_vibrate, R.string.g_vibrate_s)
     val googleGms = Toggle(Config.GOOGLE_GMS, R.string.g_gms, R.string.g_gms_s)
     val googleLive = Toggle(Config.GOOGLE_LIVE_TRANSLATE, R.string.g_live, R.string.g_live_s)
-}
-
-/** The LSPosed scopes each Google feature works in on HyperOS. */
-object GoogleScopes {
-    fun of(feature: String): List<String> = when (feature) {
-        Config.GOOGLE_POWER -> listOf(Config.SYSTEM_SCOPE)
-        Config.GOOGLE_NAV -> listOf(Config.SYSTEM_SCOPE, Config.XIAOAI)
-        Config.GOOGLE_GMS -> listOf(Config.SYSTEM_SCOPE, Config.SYSTEM_UI)
-        Config.GOOGLE_LIVE_TRANSLATE -> listOf(Config.GOOGLE_APP)
-        else -> emptyList()
-    }
-
-    val features = listOf(Config.GOOGLE_POWER, Config.GOOGLE_NAV, Config.GOOGLE_GMS, Config.GOOGLE_LIVE_TRANSLATE)
 }

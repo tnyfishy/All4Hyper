@@ -2,7 +2,10 @@
     <application android:name=".All4HyperApp" android:label="@string/app_name" android:icon="@drawable/ic_launcher"
         android:theme="@style/Theme.All4Hyper" android:description="@string/module_description"
         android:allowBackup="false" android:localeConfig="@xml/locales_config" android:supportsRtl="true">
-        <activity android:name=".MainActivity" android:exported="true">
+        <!-- The activity handles these changes itself, so a new language or theme is applied in place instead of
+             recreating the screen (which flashed and reset the status checks). -->
+        <activity android:name=".MainActivity" android:exported="true"
+            android:configChanges="locale|layoutDirection|uiMode|fontScale|density|orientation|screenSize|smallestScreenSize|screenLayout|keyboard|keyboardHidden|navigation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

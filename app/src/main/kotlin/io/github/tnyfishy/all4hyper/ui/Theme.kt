@@ -1,13 +1,16 @@
 package io.github.tnyfishy.all4hyper.ui
 
 import android.app.Activity
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialExpressiveTheme
 import androidx.compose.material3.MotionScheme
 import androidx.compose.material3.Shapes
+import androidx.compose.material3.Typography
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
@@ -15,9 +18,12 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
 import io.github.tnyfishy.all4hyper.Appearance
 
@@ -70,25 +76,49 @@ private val AppShapes = Shapes(
     extraLarge = RoundedCornerShape(28.dp),
 )
 
+/** Headings are bold and a size larger than the Material defaults. */
+private val AppTypography = Typography().let { base ->
+    base.copy(
+        headlineLarge = base.headlineLarge.copy(fontWeight = FontWeight.Bold),
+        headlineMedium = base.headlineMedium.copy(fontWeight = FontWeight.Bold, fontSize = 30.sp, lineHeight = 38.sp),
+        headlineSmall = base.headlineSmall.copy(fontWeight = FontWeight.Bold, fontSize = 26.sp, lineHeight = 34.sp),
+        titleLarge = base.titleLarge.copy(fontWeight = FontWeight.Bold, fontSize = 24.sp, lineHeight = 30.sp),
+        titleMedium = base.titleMedium.copy(fontWeight = FontWeight.Bold, fontSize = 19.sp, lineHeight = 26.sp),
+        titleSmall = base.titleSmall.copy(fontWeight = FontWeight.Bold, fontSize = 17.sp, lineHeight = 24.sp),
+    )
+}
+
+/** Pure black where the screen is large, so an OLED panel switches those pixels off. */
+private fun ColorScheme.amoled() = copy(
+    background = Color.Black, surface = Color.Black, surfaceDim = Color.Black,
+    surfaceContainerLowest = Color.Black,
+    surfaceContainerLow = Color(0xFF0C0C0E), surfaceContainer = Color(0xFF131316),
+    surfaceContainerHigh = Color(0xFF1A1A1E), surfaceContainerHighest = Color(0xFF212126),
+)
+
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun All4HyperTheme(appearance: Appearance, content: @Composable () -> Unit) {
     val dark = when (appearance.mode) {
         Appearance.Mode.System -> isSystemInDarkTheme()
         Appearance.Mode.Light -> false
-        Appearance.Mode.Dark -> true
+        Appearance.Mode.Dark, Appearance.Mode.Amoled -> true
     }
     val context = LocalContext.current
-    val colors = when {
+    val amoled = appearance.mode == Appearance.Mode.Amoled
+    val base = when {
         appearance.dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S ->
             if (dark) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         dark -> DarkScheme
         else -> LightScheme
     }
+    val colors = if (amoled) base.amoled() else base
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
+            // The window behind Compose follows the theme, so nothing flashes in another color.
+            window.setBackgroundDrawable(ColorDrawable(colors.background.toArgb()))
             WindowCompat.getInsetsController(window, view).apply {
                 isAppearanceLightStatusBars = !dark
                 isAppearanceLightNavigationBars = !dark
@@ -99,6 +129,7 @@ fun All4HyperTheme(appearance: Appearance, content: @Composable () -> Unit) {
         colorScheme = colors,
         motionScheme = MotionScheme.expressive(),
         shapes = AppShapes,
+        typography = AppTypography,
         content = content,
     )
 }

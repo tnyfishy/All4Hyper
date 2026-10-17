@@ -27,6 +27,4 @@ Dependencies
 ------------
 DexKit (https://github.com/LuckyPray/DexKit), libxposed API/interface/service, AndroidX Compose,
 Material 3 and Kotlin are Apache-2.0.
-The floating navigation bar is inspired by NzHelper (https://github.com/bug-bit/NzHelper, GPL-3.0);
-no NzHelper code is used.
 The app icon is original; All4Hyper is not affiliated with Xiaomi or Google.

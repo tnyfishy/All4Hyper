@@ -14,26 +14,6 @@ public final class Config {
     public static final String ENABLED = "master_enabled";
     public static final String DEBUG_LOG = "debug_log";
 
-    // Charging
-    public static final String KILL_NIGHT_ENTRY = "kill_night_entry";
-    public static final String KILL_NIGHT_STATE = "kill_night_state";
-    public static final String KILL_ALL_PROTECT = "kill_all_protect";
-    public static final String KILL_COMMON_PROTECT = "kill_common_protect";
-    public static final String OVERRIDE_LIMIT = "override_limit";
-    /** 50..100; {@link #LIMIT_UNLIMITED} means no limit. */
-    public static final String LIMIT_PERCENT = "limit_percent";
-    /** 0 stock, 1 force on, 2 force off. */
-    public static final String FAST_CHARGE_MODE = "fast_charge_mode";
-    /** 0 stock, 1 block auto start, 2 block auto stop. */
-    public static final String BYPASS_MODE = "bypass_mode";
-    public static final String KILL_POGO = "kill_pogo_protect";
-    public static final String KILL_WIRELESS_SILENCE = "kill_wireless_silence";
-    public static final String FAKE_HEALTH = "fake_health";
-    /** 1 (worst) .. 4 (best). */
-    public static final String HEALTH_LEVEL = "health_level";
-    /** Text shown instead of the health percentage on the charge protection page; empty keeps it. */
-    public static final String UI_HEALTH_TEXT = "ui_health_text";
-
     // Power and performance
     public static final String KILL_POWER_MODE = "kill_power_mode";
     public static final String KILL_SUPER_SAVE = "kill_super_save";
@@ -69,12 +49,9 @@ public final class Config {
     public static final String XIAOAI = "com.miui.voiceassist";
     public static final String GOOGLE_APP = "com.google.android.googlequicksearchbox";
 
-    public static final int LIMIT_UNLIMITED = 100;
-
     /** Switches that are on until the user turns them off; every other boolean starts off. */
     public static boolean defaultBool(String key) {
-        return ENABLED.equals(key) || KILL_NIGHT_ENTRY.equals(key)
-                || KILL_NIGHT_STATE.equals(key) || OVERRIDE_LIMIT.equals(key);
+        return ENABLED.equals(key);
     }
 
     private Config() { }

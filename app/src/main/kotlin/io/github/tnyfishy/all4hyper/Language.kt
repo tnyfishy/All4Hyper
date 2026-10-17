@@ -2,6 +2,7 @@ package io.github.tnyfishy.all4hyper
 
 import android.app.LocaleManager
 import android.content.Context
+import android.content.res.Configuration
 import android.os.LocaleList
 
 /** The app's own language: Vietnamese unless the user picks another one in Settings. */
@@ -14,13 +15,13 @@ object Language {
         if (manager.applicationLocales.isEmpty) manager.applicationLocales = LocaleList.forLanguageTags(supported.first())
     }
 
-    fun current(context: Context): String {
-        val locales = context.getSystemService(LocaleManager::class.java)?.applicationLocales
-        val tag = locales?.takeIf { !it.isEmpty }?.get(0)?.language
+    /** The language the UI is showing, taken from the configuration so a composable follows a change. */
+    fun current(configuration: Configuration): String {
+        val tag = configuration.locales.takeIf { !it.isEmpty }?.get(0)?.language
         return if (tag in supported) tag!! else supported.first()
     }
 
-    /** The activity is recreated by the system, so the new language shows at once. */
+    /** The activity handles the locale change itself (see the manifest), so the new language shows without a restart. */
     fun set(context: Context, tag: String) {
         context.getSystemService(LocaleManager::class.java)?.applicationLocales = LocaleList.forLanguageTags(tag)
     }

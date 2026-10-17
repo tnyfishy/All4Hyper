@@ -2,8 +2,8 @@ package io.github.tnyfishy.all4hyper
 
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 
 /**
@@ -47,7 +47,7 @@ class Appearance(context: Context) {
     private val prefs = context.getSharedPreferences("appearance", Context.MODE_PRIVATE)
     private var revision by mutableIntStateOf(0)
 
-    enum class Mode { System, Light, Dark }
+    enum class Mode { System, Light, Dark, Amoled }
 
     var mode: Mode
         get() {

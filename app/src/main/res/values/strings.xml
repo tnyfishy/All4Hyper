@@ -1,89 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">All4Hyper</string>
-    <string name="status_lsposed">LSPosed</string>
-    <string name="status_root">Root</string>
-    <string name="limit_value">%1$d%%</string>
-    <string name="module_description">Giải phóng Security Center của Xiaomi HyperOS: sạc, nguồn, quyền và giới hạn mạng.</string>
+    <string name="module_description">Giải phóng Security Center của Xiaomi HyperOS: nguồn, quyền và giới hạn mạng, cùng các tính năng Google.</string>
 
     <string name="nav_home">Trang chủ</string>
-    <string name="nav_charging">Sạc</string>
     <string name="nav_system">Hệ thống</string>
     <string name="nav_settings">Cài đặt</string>
 
     <!-- Home -->
     <string name="home_connecting">Đang kết nối LSPosed…</string>
     <string name="home_active">Đang hoạt động</string>
-    <string name="home_active_detail">Security Center đã được hook. Thay đổi có hiệu lực ngay.</string>
     <string name="home_no_scope">Thiếu scope</string>
     <string name="home_no_scope_detail">Thêm Security Center vào scope của module trong LSPosed.</string>
     <string name="home_inactive">Chưa hoạt động</string>
     <string name="home_inactive_detail">Bật All4Hyper trong LSPosed rồi mở lại app.</string>
-    <string name="status_title">Trạng thái</string>
-    <string name="status_lsposed_ready">%1$s · API %2$d</string>
-    <string name="status_lsposed_missing">Chưa kết nối</string>
-    <string name="status_scope">Scope Security Center</string>
-    <string name="status_scope_ok">Đã có</string>
-    <string name="status_scope_missing">Chưa có trong scope</string>
-    <string name="status_root_checking">Đang kiểm tra…</string>
-    <string name="status_root_granted">Đã cấp</string>
-    <string name="status_root_denied">Không có. Khởi động lại cần root.</string>
-    <string name="master_title">Công tắc tổng</string>
-    <string name="master_summary">Bật hoặc tắt toàn bộ hook cùng lúc.</string>
-    <string name="warning_title">Dùng cẩn thận</string>
-    <string name="warning_body">Các hook này thay đổi cách Security Center bảo vệ máy. Gỡ hạn chế AppOps và bỏ xác minh cài đặt làm giảm bảo vệ, nên chỉ bật những gì bạn cần.</string>
 
-    <string name="action_restart">Khởi động lại Security Center</string>
+    <string name="action_restart">Khởi động lại</string>
     <string name="action_restarting">Đang khởi động lại…</string>
-    <string name="action_recheck">Kiểm tra lại</string>
     <string name="action_add_scope">Thêm scope</string>
-    <string name="action_save">Lưu</string>
-    <string name="action_clear">Xóa</string>
-    <string name="msg_restarted">Đã khởi động lại Security Center</string>
+    <string name="msg_restarted">Đã khởi động lại</string>
     <string name="msg_restart_failed">Không khởi động lại được. Hãy kiểm tra quyền root.</string>
     <string name="msg_saved">Đã lưu</string>
     <string name="msg_scope_requested">Hãy chấp nhận yêu cầu trong thông báo của LSPosed</string>
     <string name="msg_scope_failed">Yêu cầu thêm scope chưa được chấp nhận</string>
-    <string name="msg_not_connected">Chưa kết nối LSPosed, không thể lưu</string>
 
     <!-- Charging -->
-    <string name="card_night">Bảo vệ sạc ban đêm</string>
-    <string name="t_night_entry">Chặn giữ pin qua đêm (lối vào)</string>
-    <string name="t_night_entry_s">Không cho bảo vệ sạc ban đêm khởi động, nên pin không còn bị giữ ở 80%.</string>
-    <string name="t_night_state">Chặn giữ pin qua đêm (trạng thái)</string>
-    <string name="t_night_state_s">Từ chối trạng thái sạc ban đêm ở tầng thấp, làm lớp chặn thứ hai.</string>
-    <string name="card_limit">Giới hạn sạc</string>
-    <string name="t_kill_all">Chặn mọi chiến lược bảo vệ</string>
-    <string name="t_kill_all_s">Ban đêm, điều hướng, luôn bật, tay cầm, nhiệt độ cao và sạc lâu, chặn cùng lúc.</string>
-    <string name="t_kill_common">Chặn bảo vệ chung</string>
-    <string name="t_kill_common_s">Giới hạn do nhiệt độ cao, điều hướng và sạc lâu thôi có tác dụng.</string>
-    <string name="t_override_limit">Ghi đè giới hạn</string>
-    <string name="t_override_limit_s">Viết lại giới hạn mà Security Center đặt. 100% nghĩa là không giới hạn.</string>
-    <string name="limit_title">Giới hạn</string>
-    <string name="limit_unlimited">Không giới hạn</string>
-    <string name="card_fast">Sạc nhanh và hơn nữa</string>
-    <string name="fast_title">Sạc nhanh</string>
-    <string name="fast_summary">Ép bật không giúp được phần cứng không hỗ trợ.</string>
-    <string name="fast_stock">Mặc định</string>
-    <string name="fast_on">Ép bật</string>
-    <string name="fast_off">Ép tắt</string>
-    <string name="bypass_title">Sạc bypass</string>
-    <string name="bypass_summary">Chỉ chặn việc tự chuyển, không bao giờ ép bật bypass.</string>
-    <string name="bypass_stock">Mặc định</string>
-    <string name="bypass_block_start">Chặn bật</string>
-    <string name="bypass_block_stop">Chặn dừng</string>
-    <string name="t_pogo">Chặn bảo vệ đế pogo</string>
-    <string name="t_pogo_s">Không cho giới hạn sạc của đế sạc bật lên.</string>
-    <string name="t_wireless">Tắt sạc không dây yên tĩnh</string>
-    <string name="t_wireless_s">Khôi phục công suất sạc không dây đầy đủ.</string>
-    <string name="card_health">Sức khỏe pin</string>
-    <string name="t_fake_health">Giả mức sức khỏe pin</string>
-    <string name="t_fake_health_s">Security Center báo mức bạn chọn bên dưới.</string>
-    <string name="health_level_title">Mức được báo</string>
-    <string name="health_level_summary">1 là tệ nhất, 4 là tốt nhất.</string>
-    <string name="health_text_title">Văn bản sức khỏe</string>
-    <string name="health_text_hint">Ví dụ 100%</string>
-    <string name="health_text_summary">Thay phần trăm sức khỏe trên trang bảo vệ sạc. Để trống để giữ giá trị thật.</string>
 
     <!-- System -->
     <string name="card_power">Nguồn và hiệu năng</string>
@@ -174,10 +115,12 @@
     <string name="g_live">Dịch trực tiếp</string>
     <string name="g_live_s">Trong Circle to Search, chạm Dịch và tiếp tục dịch khi cuộn trang.</string>
 
-    <string name="card_scopes">Scope LSPosed</string>
-    <string name="scopes_info">Mỗi tính năng chỉ hoạt động trong các scope ghi trên thẻ của nó. App có thể được yêu cầu thêm tại đây; System framework phải tự tick trong LSPosed, rồi khởi động lại.</string>
-    <string name="action_request_scopes">Yêu cầu các scope còn thiếu</string>
-    <string name="scopes_complete">Mọi scope mà các tính năng đang bật cần đều đã có.</string>
-    <string name="g_overlap_note">Đừng bật cùng các tính năng này trong XGoogle: hai module sẽ hook cùng một chỗ.</string>
     <string name="g_set_assistant">Đặt trợ lý số mặc định</string>
+    <string name="action_cancel">Hủy</string>
+    <string name="restart_security_center">Security Center</string>
+    <string name="restart_system_ui">System UI</string>
+    <string name="restart_system">Hệ thống</string>
+    <string name="restart_system_title">Khởi động lại hệ thống?</string>
+    <string name="restart_system_message">Android khởi động lại phần mềm (soft reboot): màn hình tối trong chốc lát và mọi app bị đóng. Dữ liệu không mất.</string>
+    <string name="mode_amoled">AMOLED</string>
 </resources>
