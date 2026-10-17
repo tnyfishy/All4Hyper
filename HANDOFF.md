@@ -11,7 +11,7 @@ Một module LSPosed (libxposed API 102) cho Xiaomi HyperOS, kèm app cài đặ
 ## Trạng thái repo
 - Repo duy nhất: `tnyfishy/All4Hyper`, nhánh `main`, mã nguồn ở gốc repo. Các repo cũ (`re-xgoogle` và bản All4Hyper trước đó) đã bị người dùng xóa.
 - Commit mang tên `tnyfishy <tnyfishy@users.noreply.github.com>`; không có dòng ghi công nào khác.
-- **Không để tên trợ lý AI xuất hiện ở bất kỳ đâu trên GitHub hay trong mã nguồn**: không trong commit (tác giả, người commit, nội dung, dòng Co-Authored-By), tên nhánh, PR, bình luận hay file. Nhánh làm việc đặt tên trung tính (vd. `dark-mode-ui-features`).
+- **Không để tên trợ lý AI xuất hiện ở bất kỳ đâu trên GitHub hay trong mã nguồn**: không trong commit (tác giả, người commit, nội dung, dòng Co-Authored-By), tên nhánh, PR, bình luận hay file. Nhánh làm việc đặt tên trung tính (vd. `tnyfish/dark-mode-ui-features`).
 
 ## Cấu trúc `all4hyper/`
 - `app/src/main/java/.../hooks/`: hook Security Center viết lại từ đầu (`HookKit`, `SystemHooks`, `NetworkHooks`); hook sạc và sức khỏe pin đã bị bỏ theo yêu cầu. `Config.java` (khóa cài đặt), `HookSettings.java` (đọc cài đặt mỗi lần gọi).
