@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">All4Hyper</string>
+    <string name="module_description">HyperOS tweaks. Lift Security Center\'s private AppOps restrictions.</string>
+    <string name="status_inactive">Not active: enable All4Hyper in LSPosed and open it again.</string>
+    <string name="status_active">Active (%1$s, API %2$d). Changes apply right away.</string>
+    <string name="status_no_scope">Connected to %1$s (API %2$d), but Security Center (com.miui.securitycenter) is not in the scope. Tick it in LSPosed.</string>
+    <string name="appops_title">Lift AppOps restrictions</string>
+    <string name="appops_summary">Security Center can no longer restrict Xiaomi\'s private AppOps (install apps, chain launch, device identifiers, screen recording, accessibility, AI screen control). Restrictions set before you turn this on stay until you change them.</string>
+    <string name="appops_warning">This also removes protections against accessibility and screen recording abuse. Only turn it on if you trust your installed apps.</string>
+</resources>

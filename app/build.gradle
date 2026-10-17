@@ -1,0 +1,24 @@
+plugins {
+    id 'com.android.application'
+}
+android {
+    namespace 'io.github.tnyfishy.all4hyper'
+    compileSdk { version = release(37) }
+    buildToolsVersion '36.0.0'
+    defaultConfig {
+        applicationId 'io.github.tnyfishy.all4hyper'
+        minSdk 35
+        targetSdk 36
+        versionCode 1
+        versionName '0.1.0'
+    }
+    buildTypes {
+        release { signingConfig signingConfigs.debug; minifyEnabled true; proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro' }
+    }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
+}
+dependencies {
+    compileOnly 'io.github.libxposed:api:102.0.0'
+    implementation 'io.github.libxposed:service:102.0.0'
+    implementation 'io.github.libxposed:interface:102.0.0'
+}

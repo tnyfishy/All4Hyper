@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="module_description">Tinh chỉnh HyperOS. Gỡ các hạn chế AppOps riêng của Security Center.</string>
+    <string name="status_inactive">Chưa hoạt động: bật All4Hyper trong LSPosed rồi mở lại app.</string>
+    <string name="status_active">Đang hoạt động (%1$s, API %2$d). Thay đổi có hiệu lực ngay.</string>
+    <string name="status_no_scope">Đã kết nối %1$s (API %2$d), nhưng Security Center (com.miui.securitycenter) chưa có trong scope. Hãy tick nó trong LSPosed.</string>
+    <string name="appops_title">Gỡ hạn chế AppOps</string>
+    <string name="appops_summary">Security Center không thể hạn chế các AppOps riêng của Xiaomi nữa (cài app, khởi chạy chuỗi, định danh thiết bị, ghi màn hình, accessibility, AI điều khiển màn hình). Các hạn chế đã đặt trước khi bật vẫn giữ nguyên cho tới khi bạn đổi.</string>
+    <string name="appops_warning">Công tắc này cũng gỡ bảo vệ chống lạm dụng accessibility và ghi màn hình. Chỉ bật nếu bạn tin các app đã cài.</string>
+</resources>
