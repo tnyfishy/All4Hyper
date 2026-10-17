@@ -6,7 +6,7 @@ import kotlinx.coroutines.withContext
 
 /** Root through `su -c`. Calls block, so they run on the IO dispatcher. */
 object Root {
-    private const val TIMEOUT_SECONDS = 10L
+    private const val DEFAULT_TIMEOUT_SECONDS = 10L
 
     data class Result(val ok: Boolean, val output: String, val error: String)
 
@@ -16,7 +16,7 @@ object Root {
     /** Stops every process of the package so the hooks and the new settings load on its next start. */
     suspend fun restart(packageName: String): Boolean = run("am force-stop $packageName").ok
 
-    suspend fun run(script: String): Result = withContext(Dispatchers.IO) {
+    suspend fun run(script: String, timeoutSeconds: Long = DEFAULT_TIMEOUT_SECONDS): Result = withContext(Dispatchers.IO) {
         var process: Process? = null
         try {
             process = ProcessBuilder("su", "-c", script).start()
@@ -28,7 +28,7 @@ object Root {
                 Thread { process.inputStream.bufferedReader().useLines { lines -> lines.forEach { output.appendLine(it) } } },
                 Thread { process.errorStream.bufferedReader().useLines { lines -> lines.forEach { error.appendLine(it) } } },
             ).onEach { it.isDaemon = true; it.start() }
-            if (!process.waitFor(TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
+            if (!process.waitFor(timeoutSeconds, TimeUnit.SECONDS)) {
                 process.destroy()
                 return@withContext Result(false, output.toString(), "timed out")
             }

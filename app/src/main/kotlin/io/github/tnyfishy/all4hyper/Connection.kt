@@ -16,7 +16,9 @@ sealed interface Link {
     /** The module is not enabled in LSPosed (or no framework is running), so nothing can be saved. */
     data object Missing : Link
 
-    data class Ready(val service: XposedService, val scoped: Boolean) : Link {
+    data class Ready(val service: XposedService, val scope: List<String>) : Link {
+        /** Security Center is the scope the Security Center hooks need. */
+        val scoped: Boolean get() = Config.SECURITY_CENTER in scope
         val framework: String get() = "${service.frameworkName} ${service.frameworkVersion}"
         val api: Int get() = service.apiVersion
     }
@@ -50,16 +52,21 @@ object Connection {
 
     private fun update(value: XposedService?) {
         service = value
-        state.value = if (value == null) Link.Missing else Link.Ready(value, hasScope(value))
+        state.value = if (value == null) Link.Missing else Link.Ready(value, scopeOf(value))
     }
 
-    private fun hasScope(value: XposedService): Boolean =
-        runCatching { Config.SECURITY_CENTER in value.scope }.getOrDefault(false)
+    private fun scopeOf(value: XposedService): List<String> =
+        runCatching { value.scope.toList() }.getOrDefault(emptyList())
 
-    /** Asks LSPosed to add Security Center to the module's scope; the user approves in a notification. */
-    fun requestScope(value: XposedService, done: (Boolean) -> Unit) {
+    /**
+     * Asks LSPosed to add apps to the module's scope; the user approves in a notification.
+     * LSPosed cannot add the system framework this way, so "system" is never requested.
+     */
+    fun requestScope(value: XposedService, packages: List<String>, done: (Boolean) -> Unit) {
+        val requested = packages.filter { it != Config.SYSTEM_SCOPE }
+        if (requested.isEmpty()) return done(true)
         runCatching {
-            value.requestScope(listOf(Config.SECURITY_CENTER), object : XposedService.OnScopeEventListener {
+            value.requestScope(requested, object : XposedService.OnScopeEventListener {
                 override fun onScopeRequestApproved(approved: List<String>) {
                     main.post { refresh(); done(true) }
                 }

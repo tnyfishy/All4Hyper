@@ -138,4 +138,55 @@
     <string name="about_version">Phiên bản %1$s</string>
     <string name="about_credit">Các mục tiêu hook được tìm ra nhờ đọc MeowPower của yuhj319. Code ở đây là bản viết lại, không phải bản sao chép.</string>
     <string name="about_open">Mở MeowPower</string>
+
+    <!-- Google -->
+    <string name="nav_google">Google</string>
+    <string name="card_companion">Module đồng hành</string>
+    <string name="companion_summary">Biến app Google thành app hệ thống, báo cho hệ thống biết Circle to Search và dịch trực tiếp được hỗ trợ, và đặt nút nguồn cùng thanh điều hướng sang Google mỗi lần khởi động. Cài bằng root và cần khởi động lại.</string>
+    <string name="companion_unknown">Chưa đọc được</string>
+    <string name="companion_unknown_detail">Cần root để đọc trạng thái module.</string>
+    <string name="companion_checking">Đang kiểm tra…</string>
+    <string name="companion_installing">Đang cài…</string>
+    <string name="companion_missing">Chưa cài</string>
+    <string name="companion_missing_detail">Các tính năng bên dưới cần nó.</string>
+    <string name="companion_disabled">Đang tắt</string>
+    <string name="companion_disabled_detail">Bật lại trong trình quản lý root rồi khởi động lại máy.</string>
+    <string name="companion_pending">Đã cài</string>
+    <string name="companion_pending_detail">Khởi động lại để hoàn tất.</string>
+    <string name="companion_ready">Đã cài</string>
+    <string name="companion_ready_detail">Đã là bản mới nhất.</string>
+    <string name="companion_outdated">Có bản cập nhật</string>
+    <string name="companion_outdated_detail">App này có bản mới hơn, có thêm công tắc cho nút nguồn.</string>
+    <string name="action_install">Cài đặt</string>
+    <string name="action_update">Cập nhật</string>
+    <string name="msg_companion_installed">Đã cài module đồng hành. Khởi động lại để hoàn tất.</string>
+    <string name="msg_companion_failed">Không cài được module đồng hành. Hãy kiểm tra quyền root.</string>
+    <string name="msg_key_failed">Không đổi được phím. Hãy kiểm tra quyền root.</string>
+    <string name="msg_reboot_needed">Đã lưu. Thay đổi cấp hệ thống có hiệu lực sau khi khởi động lại.</string>
+    <string name="msg_key_no_root">Đã lưu, nhưng không có root nên phím giữ nguyên đến lần khởi động sau.</string>
+
+    <string name="card_power_key">Nút nguồn</string>
+    <string name="g_power">Nhấn giữ nút nguồn mở Gemini / Trợ lý</string>
+    <string name="g_power_s">Đặt nút nguồn sang Google và giữ trợ lý chạy sau khi dọn dẹp. Hãy chọn Google làm trợ lý số trong Cài đặt → Ứng dụng → Ứng dụng mặc định.</string>
+    <string name="card_nav">Thanh điều hướng</string>
+    <string name="g_nav">Nhấn giữ thanh điều hướng mở Circle to Search</string>
+    <string name="g_nav_s">Chuyển thao tác nhấn giữ thanh điều hướng, và vuốt cạnh rồi giữ, sang Circle to Search kể cả khi XiaoAi sẽ trả lời.</string>
+    <string name="g_vibrate">Rung khi mở</string>
+    <string name="g_vibrate_s">Một cú rung ngắn, như trên Pixel.</string>
+    <string name="card_gms">Dịch vụ Google</string>
+    <string name="g_gms">Gỡ hạn chế GMS của bản Trung Quốc</string>
+    <string name="g_gms_s">Các tính năng Google Play services hoạt động như ROM quốc tế, gồm Quick Share và ô của nó trong trung tâm điều khiển.</string>
+    <string name="card_live">Circle to Search</string>
+    <string name="g_live">Dịch trực tiếp</string>
+    <string name="g_live_s">Trong Circle to Search, chạm Dịch và tiếp tục dịch khi cuộn trang.</string>
+
+    <string name="scope_system">System framework</string>
+    <string name="scope_systemui">System UI</string>
+    <string name="scope_xiaoai">XiaoAi</string>
+    <string name="scope_google">App Google</string>
+    <string name="card_scopes">Scope LSPosed</string>
+    <string name="scopes_info">Mỗi tính năng chỉ hoạt động trong các scope ghi trên thẻ của nó. App có thể được yêu cầu thêm tại đây; System framework phải tự tick trong LSPosed, rồi khởi động lại.</string>
+    <string name="action_request_scopes">Yêu cầu các scope còn thiếu</string>
+    <string name="scopes_complete">Mọi scope mà các tính năng đang bật cần đều đã có.</string>
+    <string name="g_overlap_note">Đừng bật cùng các tính năng này trong XGoogle: hai module sẽ hook cùng một chỗ.</string>
 </resources>

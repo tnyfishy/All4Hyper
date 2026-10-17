@@ -16,6 +16,7 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.BatteryChargingFull
 import androidx.compose.material.icons.rounded.Home
+import androidx.compose.material.icons.rounded.Language
 import androidx.compose.material.icons.rounded.Memory
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material3.AlertDialog
@@ -45,11 +46,13 @@ import androidx.compose.ui.res.stringResource
 import io.github.tnyfishy.all4hyper.ui.All4HyperTheme
 import io.github.tnyfishy.all4hyper.ui.FloatingBarHeight
 import io.github.tnyfishy.all4hyper.ui.FloatingNavBar
+import io.github.tnyfishy.all4hyper.ui.GoogleActions
 import io.github.tnyfishy.all4hyper.ui.HomeActions
 import io.github.tnyfishy.all4hyper.ui.NavItem
 import io.github.tnyfishy.all4hyper.ui.Page
 import io.github.tnyfishy.all4hyper.ui.RootState
 import io.github.tnyfishy.all4hyper.ui.chargingPage
+import io.github.tnyfishy.all4hyper.ui.googlePage
 import io.github.tnyfishy.all4hyper.ui.homePage
 import io.github.tnyfishy.all4hyper.ui.settingsPage
 import io.github.tnyfishy.all4hyper.ui.systemPage
@@ -78,11 +81,24 @@ private fun AppRoot(appearance: Appearance) {
     var rootCheck by remember { mutableIntStateOf(0) }
     var restarting by remember { mutableStateOf(false) }
     var confirmReset by remember { mutableStateOf(false) }
+    var companion by remember { mutableStateOf(CompanionState.Unknown) }
 
     // The first su call is what makes the root manager ask for permission.
     LaunchedEffect(rootCheck) {
         root = RootState.Checking
         root = if (Root.available()) RootState.Granted else RootState.Denied
+    }
+
+    // The companion is read through root, so it waits for the root answer (and again on every re-check).
+    LaunchedEffect(root) {
+        when (root) {
+            RootState.Checking -> Unit
+            RootState.Denied -> companion = CompanionState.Unknown
+            RootState.Granted -> {
+                companion = CompanionState.Checking
+                companion = CompanionModule.check(context)
+            }
+        }
     }
 
     fun say(@StringRes message: Int) {
@@ -107,7 +123,7 @@ private fun AppRoot(appearance: Appearance) {
         },
         addScope = {
             (link as? Link.Ready)?.let { ready ->
-                Connection.requestScope(ready.service) { approved -> if (!approved) say(R.string.msg_scope_failed) }
+                Connection.requestScope(ready.service, listOf(Config.SECURITY_CENTER)) { approved -> if (!approved) say(R.string.msg_scope_failed) }
                 say(R.string.msg_scope_requested)
             }
         },
@@ -118,10 +134,59 @@ private fun AppRoot(appearance: Appearance) {
         reset = { confirmReset = true },
     )
 
+    val googleActions = GoogleActions(
+        install = {
+            scope.launch {
+                companion = CompanionState.Installing
+                val done = CompanionModule.install(context)
+                if (done) {
+                    // A switch that is already off must stop the companion's first boot from taking its key.
+                    if (!store.bool(Config.GOOGLE_POWER)) CompanionModule.applyKey(CompanionModule.Key.Power, false)
+                    if (!store.bool(Config.GOOGLE_NAV)) CompanionModule.applyKey(CompanionModule.Key.Nav, false)
+                }
+                companion = CompanionModule.check(context)
+                say(if (done) R.string.msg_companion_installed else R.string.msg_companion_failed)
+            }
+        },
+        recheck = {
+            rootCheck++
+            Connection.refresh()
+        },
+        toggle = { key, enabled ->
+            scope.launch {
+                // The companion sets these two keys at boot: change the system first, save only if that worked.
+                val systemKey = when (key) {
+                    Config.GOOGLE_POWER -> CompanionModule.Key.Power
+                    Config.GOOGLE_NAV -> CompanionModule.Key.Nav
+                    else -> null
+                }
+                if (systemKey != null && root == RootState.Granted && !CompanionModule.applyKey(systemKey, enabled)) {
+                    say(R.string.msg_key_failed)
+                    return@launch
+                }
+                store.put(key, enabled)
+                say(
+                    when {
+                        key == Config.GOOGLE_CIRCLE_VIBRATE -> R.string.msg_saved
+                        systemKey != null && root != RootState.Granted -> R.string.msg_key_no_root
+                        else -> R.string.msg_reboot_needed
+                    },
+                )
+            }
+        },
+        requestScopes = { packages ->
+            (link as? Link.Ready)?.let { ready ->
+                Connection.requestScope(ready.service, packages) { approved -> if (!approved) say(R.string.msg_scope_failed) }
+                say(R.string.msg_scope_requested)
+            }
+        },
+    )
+
     val items = listOf(
         NavItem(stringResource(R.string.nav_home), Icons.Rounded.Home),
         NavItem(stringResource(R.string.nav_charging), Icons.Rounded.BatteryChargingFull),
         NavItem(stringResource(R.string.nav_system), Icons.Rounded.Memory),
+        NavItem(stringResource(R.string.nav_google), Icons.Rounded.Language),
         NavItem(stringResource(R.string.nav_settings), Icons.Rounded.Settings),
     )
     val titles = listOf(stringResource(R.string.app_name)) + items.drop(1).map { it.label }
@@ -149,6 +214,7 @@ private fun AppRoot(appearance: Appearance) {
                         0 -> homePage(link, store, root, restarting, actions)
                         1 -> chargingPage(store) { say(R.string.msg_saved) }
                         2 -> systemPage(store)
+                        3 -> googlePage(link, store, companion, root, googleActions)
                         else -> settingsPage(store, appearance)
                     }
                 }

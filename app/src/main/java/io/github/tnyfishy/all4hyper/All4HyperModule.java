@@ -4,11 +4,13 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import io.github.libxposed.api.XposedModule;
 import io.github.libxposed.api.XposedModuleInterface;
+import io.github.tnyfishy.all4hyper.google.GoogleEntry;
 import io.github.tnyfishy.all4hyper.hooks.SecurityCenterHooks;
 
 /**
- * Entry point. The scope is Security Center only; it runs in several processes (the power saver
- * service lives in :remote), and each gets its own copy of the hooks.
+ * Entry point. Security Center runs in several processes (the power saver service lives in
+ * :remote) and each gets its own copy of the hooks; the Google features are spread over the system
+ * server, SystemUI, XiaoAi and the Google app.
  */
 public final class All4HyperModule extends XposedModule {
     private static final String TAG = "All4Hyper";
@@ -22,13 +24,32 @@ public final class All4HyperModule extends XposedModule {
         } catch (Throwable failure) {
             log(Log.ERROR, TAG, "Remote preferences unavailable; defaults will be used", failure);
         }
+        GoogleEntry.attach(this, prefs);
         log(Log.INFO, TAG, "Loaded in " + processName + ", framework " + getFrameworkName() + " "
                 + getFrameworkVersion() + ", API " + getApiVersion());
     }
 
+    @Override public void onSystemServerStarting(XposedModuleInterface.SystemServerStartingParam param) {
+        GoogleEntry.hookSystem(param.getClassLoader());
+    }
+
     @Override public void onPackageReady(XposedModuleInterface.PackageReadyParam param) {
-        if (!Config.SECURITY_CENTER.equals(param.getPackageName())) return;
-        log(Log.INFO, TAG, "Security Center ready in " + processName);
-        SecurityCenterHooks.install(this, param.getClassLoader(), prefs);
+        String packageName = param.getPackageName();
+        switch (packageName) {
+            case Config.SECURITY_CENTER:
+                log(Log.INFO, TAG, "Security Center ready in " + processName);
+                SecurityCenterHooks.install(this, param.getClassLoader(), prefs);
+                break;
+            case Config.SYSTEM_UI:
+            case Config.XIAOAI:
+                GoogleEntry.hookPackage(packageName, param.getClassLoader());
+                break;
+            case Config.GOOGLE_APP:
+                GoogleEntry.hookGoogleApp(this, param.getClassLoader(),
+                        param.getApplicationInfo().sourceDir, param.getApplicationInfo().dataDir);
+                break;
+            default:
+                break;
+        }
     }
 }

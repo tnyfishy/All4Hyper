@@ -1,0 +1,32 @@
+All4Hyper is distributed under GPL-3.0; see the LICENSE file at the root of this repository.
+
+Google features (app/src/main/kotlin/.../google, app/src/main/java/.../google, companion/)
+-------------------------------------------------------------------------------------------
+These come from XGoogle (https://github.com/Leekin2/XGoogle, GPL-3.0, by Leekin), a fork of
+Coogle 1.2 (https://github.com/zopulus/coogle, GPL-3.0, by zopulus). The hooks derive from
+MiToverG422/ONextBox (GPL-3.0), commit 1ce6ad3559c9c6ba33f8d8179b1ede55198961e2.
+Only the parts that apply to HyperOS and to the four features offered here were taken:
+  - the hook compatibility layer (google/compat)
+  - AssistantRuntime, HookLog, LspConfig (switches now read All4Hyper's own preferences)
+  - ContextualSearchHooks, XiaoAiNavRedirectHooks, AssistantFeatureHooks (contextual search report only)
+  - AssistantKeepAliveHooks, AssistantVoiceHooks, NativeAssistantSessionRecovery
+  - GmsRegionRestrictionHooker, QuickShareTileHooks
+  - LiveTranslateHooks and HookInstaller (Coogle 1.3.x)
+  - the companion module, with one change: a switch for the power key (/data/adb/coogle_power_off)
+    next to the existing one for the navigation handle; its version is 1.3.1-a4h1 (132).
+GoogleSystemHooks and GoogleEntry are All4Hyper's own wiring around those hooks.
+The companion bundles Google enrollment components that remain subject to their original licenses.
+
+Security Center hooks (app/src/main/java/.../hooks)
+---------------------------------------------------
+The class and method names these hooks target, and what each call does, were found by reading
+MeowPower by yuhj319 (https://github.com/Xposed-Modules-Repo/io.github.yuhj319.meowpower), which has no
+licence. The code here is a fresh implementation, not a copy.
+
+Dependencies
+------------
+DexKit (https://github.com/LuckyPray/DexKit), libxposed API/interface/service, AndroidX Compose,
+Material 3 and Kotlin are Apache-2.0.
+The floating navigation bar is inspired by NzHelper (https://github.com/bug-bit/NzHelper, GPL-3.0);
+no NzHelper code is used.
+The app icon is original; All4Hyper is not affiliated with Xiaomi or Google.

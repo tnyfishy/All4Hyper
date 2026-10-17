@@ -36,6 +36,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import kotlin.math.abs
@@ -119,6 +120,6 @@ private fun RowScope.Tab(item: NavItem, tint: Color, selected: Boolean, onClick:
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Icon(item.icon, contentDescription = null, tint = tint, modifier = Modifier.size(24.dp))
-        Text(item.label, style = MaterialTheme.typography.labelMedium, color = tint, maxLines = 1)
+        Text(item.label, style = MaterialTheme.typography.labelSmall, color = tint, maxLines = 1, overflow = TextOverflow.Ellipsis)
     }
 }

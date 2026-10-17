@@ -2,3 +2,5 @@
 -keep class io.github.tnyfishy.all4hyper.All4HyperModule { <init>(); }
 -keep class io.github.libxposed.** { *; }
 -dontwarn io.github.libxposed.api.**
+# DexKit is driven from native code.
+-keep class org.luckypray.dexkit.** { *; }

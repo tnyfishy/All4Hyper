@@ -52,6 +52,23 @@ public final class Config {
     public static final String NO_TETHER_LIMIT = "no_tether_limit";
     public static final String NO_INSTALL_VERIFY = "no_install_verify";
 
+    // Google features (all off until the user turns them on)
+    /** Long-press power opens Google's assistant. System framework hooks; needs the companion. */
+    public static final String GOOGLE_POWER = "google_power";
+    /** Long-press the navigation handle opens Circle to Search. */
+    public static final String GOOGLE_NAV = "google_nav";
+    /** A short tick when Circle to Search opens from the navigation handle. */
+    public static final String GOOGLE_CIRCLE_VIBRATE = "google_circle_vibrate";
+    /** Removes the China GMS restriction, with Quick Share and its control center tile. */
+    public static final String GOOGLE_GMS = "google_gms";
+    /** Circle to Search live (scroll) translation. */
+    public static final String GOOGLE_LIVE_TRANSLATE = "google_live_translate";
+
+    public static final String SYSTEM_SCOPE = "system";
+    public static final String SYSTEM_UI = "com.android.systemui";
+    public static final String XIAOAI = "com.miui.voiceassist";
+    public static final String GOOGLE_APP = "com.google.android.googlequicksearchbox";
+
     public static final int LIMIT_UNLIMITED = 100;
 
     /** Switches that are on until the user turns them off; every other boolean starts off. */
