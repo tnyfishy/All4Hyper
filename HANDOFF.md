@@ -9,9 +9,8 @@ Một module LSPosed (libxposed API 102) cho Xiaomi HyperOS, kèm app cài đặ
 3. Thẻ **Google**, lấy từ XGoogle (`Leekin2/XGoogle`): nhấn giữ nút nguồn → Gemini/Trợ lý, nhấn giữ thanh điều hướng → Circle to Search, gỡ hạn chế GMS (kèm Quick Share), dịch trực tiếp.
 
 ## Trạng thái repo
-- Repo chính: `tnyfishy/All4Hyper`, nhánh `main`. Mã nguồn nằm ở gốc repo. Lịch sử được tách từ thư mục `all4hyper/` của `tnyfishy/re-xgoogle` (nhánh `ccr-7fff8167-9dwl6x`) bằng `git subtree split`.
-- Bản sao cũ vẫn còn ở `re-xgoogle/all4hyper/`; chưa xóa vì chưa được yêu cầu.
-- Đổi tên repo GitHub: không có công cụ, người dùng tự đổi trong Settings.
+- Repo duy nhất: `tnyfishy/All4Hyper`, nhánh `main`, mã nguồn ở gốc repo. Các repo cũ (`re-xgoogle` và bản All4Hyper trước đó) đã bị người dùng xóa.
+- Commit mang tên `tnyfishy <tnyfishy@users.noreply.github.com>`; không có dòng ghi công nào khác.
 
 ## Cấu trúc `all4hyper/`
 - `app/src/main/java/.../hooks/`: hook Security Center viết lại từ đầu (`HookKit`, `ChargeHooks`, `SystemHooks`, `NetworkHooks`, `HealthTextHook`). `Config.java` (khóa cài đặt), `HookSettings.java` (đọc cài đặt mỗi lần gọi).
@@ -47,6 +46,6 @@ Một module LSPosed (libxposed API 102) cho Xiaomi HyperOS, kèm app cài đặ
 - Ba bộ kiểm thử nằm ở thư mục tạm `scratchpad/hooktest`, `hooktest2`, `roottest` (không nằm trong repo, sẽ mất). Cách làm: biên dịch mã nguồn ứng dụng cùng các lớp giả bằng `javac` với `android.jar` ở cuối classpath, chạy riêng từng kịch bản trong một JVM. Muốn giữ lại thì commit vào repo (chưa làm, vì chưa được yêu cầu).
 
 ## Việc tiếp theo gợi ý
-1. Hỏi lại người dùng về việc chuyển sang `tnyfishy/All4Hyper` (cần cấp quyền push, hoặc làm bundle/zip). Nếu chuyển, đưa nội dung `all4hyper/` lên gốc repo mới; chỉ xóa khỏi `re-xgoogle` khi người dùng đồng ý.
+1. Người dùng thử APK trên máy HyperOS thật (build: `./gradlew assembleRelease`), rồi gửi log LSPosed (tag `All4Hyper`) hoặc ảnh chụp màn hình để sửa lỗi.
 2. Sau khi người dùng thử trên máy: xin log LSPosed (tag `All4Hyper`) hoặc ảnh chụp màn hình, rồi sửa lỗi bố cục/hook.
 3. Nếu muốn lọc AppOps theo từng op: log `Dropped ...` sẽ cho biết giá trị op thật.
