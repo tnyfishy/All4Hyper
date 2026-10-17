@@ -6,6 +6,7 @@ import android.app.Application
 class All4HyperApp : Application() {
     override fun onCreate() {
         super.onCreate()
+        Language.ensureDefault(this)
         Connection.start()
     }
 }

@@ -13,10 +13,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.OpenInNew
-import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material.icons.rounded.Extension
 import androidx.compose.material.icons.rounded.Refresh
-import androidx.compose.material.icons.rounded.Warning
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -27,7 +25,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearWavyProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -52,18 +49,18 @@ class GoogleActions(
 fun LazyListScope.googlePage(link: Link, store: Store, companion: CompanionState, root: RootState, actions: GoogleActions) {
     item { CompanionCard(companion, root, actions) }
     item {
-        FeatureCard(R.string.card_power_key, link, store, actions, Features.googlePower) {
+        FeatureCard(R.string.card_power_key, store, actions, Features.googlePower) {
             AssistantShortcut()
         }
     }
     item {
-        FeatureCard(R.string.card_nav, link, store, actions, Features.googleNav, Features.googleVibrate)
+        FeatureCard(R.string.card_nav, store, actions, Features.googleNav, Features.googleVibrate)
     }
     item {
-        FeatureCard(R.string.card_gms, link, store, actions, Features.googleGms)
+        FeatureCard(R.string.card_gms, store, actions, Features.googleGms)
     }
     item {
-        FeatureCard(R.string.card_live, link, store, actions, Features.googleLive)
+        FeatureCard(R.string.card_live, store, actions, Features.googleLive)
     }
     item { ScopesCard(link, store, actions) }
 }
@@ -125,11 +122,10 @@ private fun CompanionCard(state: CompanionState, root: RootState, actions: Googl
     }
 }
 
-/** A switch (and an optional sub-switch that follows it) with the LSPosed scopes it works in. */
+/** A switch, and an optional sub-switch that follows it. */
 @Composable
 private fun FeatureCard(
     @StringRes card: Int,
-    link: Link,
     store: Store,
     actions: GoogleActions,
     main: Toggle,
@@ -156,7 +152,6 @@ private fun FeatureCard(
             )
         }
         extra()
-        ScopeChips(GoogleScopes.of(main.key), link)
     }
 }
 
@@ -181,33 +176,6 @@ private fun AssistantShortcut() {
     ) {
         Icon(Icons.AutoMirrored.Rounded.OpenInNew, contentDescription = null, modifier = Modifier.size(18.dp))
         Text(stringResource(R.string.g_set_assistant), modifier = Modifier.padding(start = 8.dp))
-    }
-}
-
-@OptIn(ExperimentalLayoutApi::class)
-@Composable
-private fun ScopeChips(required: List<String>, link: Link) {
-    val scope = (link as? Link.Ready)?.scope
-    FlowRow(
-        Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 8.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-    ) {
-        required.forEach { name ->
-            val present = scope?.contains(name)
-            SuggestionChip(
-                onClick = {},
-                label = { Text(stringResource(GoogleScopes.label(name))) },
-                icon = when (present) {
-                    true -> {
-                        { Icon(Icons.Rounded.Check, contentDescription = null, modifier = Modifier.size(18.dp), tint = MaterialTheme.colorScheme.primary) }
-                    }
-                    false -> {
-                        { Icon(Icons.Rounded.Warning, contentDescription = null, modifier = Modifier.size(18.dp), tint = MaterialTheme.colorScheme.error) }
-                    }
-                    null -> null
-                },
-            )
-        }
     }
 }
 

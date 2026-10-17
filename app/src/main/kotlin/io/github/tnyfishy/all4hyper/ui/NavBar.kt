@@ -43,7 +43,8 @@ import androidx.compose.ui.unit.dp
 import kotlin.math.abs
 import kotlin.math.roundToInt
 
-class NavItem(val label: String, val icon: ImageVector)
+/** [multicolor] icons keep their own colors instead of taking the tab tint. */
+class NavItem(val label: String, val icon: ImageVector, val multicolor: Boolean = false)
 
 /** Space the pages leave under their content so the last row can scroll clear of the floating bar. */
 val FloatingBarHeight = 96.dp
@@ -123,7 +124,7 @@ private fun RowScope.Tab(item: NavItem, tint: Color, selected: Boolean, onClick:
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Icon(item.icon, contentDescription = null, tint = tint, modifier = Modifier.size(24.dp))
+        Icon(item.icon, contentDescription = null, tint = if (item.multicolor) Color.Unspecified else tint, modifier = Modifier.size(24.dp))
         Text(item.label, style = MaterialTheme.typography.labelSmall, color = tint, maxLines = 1, overflow = TextOverflow.Ellipsis)
     }
 }

@@ -29,8 +29,6 @@
     <string name="status_root_denied">Not available. Restarting needs root.</string>
     <string name="master_title">Master switch</string>
     <string name="master_summary">Turns every hook on or off at once.</string>
-    <string name="quick_title">Quick actions</string>
-    <string name="quick_features">%1$d features on</string>
     <string name="warning_title">Use with care</string>
     <string name="warning_body">These hooks change how Security Center protects the device. Lifting AppOps restrictions and install verification lowers protection, so turn on only what you need.</string>
 
@@ -38,20 +36,13 @@
     <string name="action_restarting">Restarting…</string>
     <string name="action_recheck">Re-check</string>
     <string name="action_add_scope">Add scope</string>
-    <string name="action_recommended">Recommended</string>
-    <string name="action_reset">Reset to defaults</string>
     <string name="action_save">Save</string>
     <string name="action_clear">Clear</string>
-    <string name="action_cancel">Cancel</string>
-    <string name="reset_title">Reset all settings?</string>
-    <string name="reset_message">Every switch returns to its default.</string>
     <string name="msg_restarted">Security Center restarted</string>
     <string name="msg_restart_failed">Could not restart. Check root access.</string>
     <string name="msg_saved">Saved</string>
     <string name="msg_scope_requested">Approve the request in the LSPosed notification</string>
     <string name="msg_scope_failed">The scope request was not approved</string>
-    <string name="msg_recommended">Recommended settings applied</string>
-    <string name="msg_reset_done">Settings reset</string>
     <string name="msg_not_connected">Not connected to LSPosed, nothing can be saved</string>
 
     <!-- Charging -->
@@ -132,6 +123,9 @@
     <string name="mode_system">System</string>
     <string name="mode_light">Light</string>
     <string name="mode_dark">Dark</string>
+    <string name="lang_title">Language</string>
+    <string name="lang_vi">Tiếng Việt</string>
+    <string name="lang_en">English</string>
     <string name="t_dynamic">Dynamic color</string>
     <string name="t_dynamic_s">Use the wallpaper colors.</string>
     <string name="card_about">About</string>
@@ -180,10 +174,6 @@
     <string name="g_live">Live translate</string>
     <string name="g_live_s">In Circle to Search, tap Translate and keep translating as you scroll.</string>
 
-    <string name="scope_system">System framework</string>
-    <string name="scope_systemui">System UI</string>
-    <string name="scope_xiaoai">XiaoAi</string>
-    <string name="scope_google">Google app</string>
     <string name="card_scopes">LSPosed scopes</string>
     <string name="scopes_info">Each feature works only in the scopes shown on its card. Apps can be requested here; the system framework must be ticked in LSPosed by hand, followed by a reboot.</string>
     <string name="action_request_scopes">Request missing scopes</string>

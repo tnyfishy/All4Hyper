@@ -30,8 +30,6 @@
     <string name="status_root_denied">Không có. Khởi động lại cần root.</string>
     <string name="master_title">Công tắc tổng</string>
     <string name="master_summary">Bật hoặc tắt toàn bộ hook cùng lúc.</string>
-    <string name="quick_title">Thao tác nhanh</string>
-    <string name="quick_features">%1$d tính năng đang bật</string>
     <string name="warning_title">Dùng cẩn thận</string>
     <string name="warning_body">Các hook này thay đổi cách Security Center bảo vệ máy. Gỡ hạn chế AppOps và bỏ xác minh cài đặt làm giảm bảo vệ, nên chỉ bật những gì bạn cần.</string>
 
@@ -39,20 +37,13 @@
     <string name="action_restarting">Đang khởi động lại…</string>
     <string name="action_recheck">Kiểm tra lại</string>
     <string name="action_add_scope">Thêm scope</string>
-    <string name="action_recommended">Khuyến nghị</string>
-    <string name="action_reset">Đặt lại mặc định</string>
     <string name="action_save">Lưu</string>
     <string name="action_clear">Xóa</string>
-    <string name="action_cancel">Hủy</string>
-    <string name="reset_title">Đặt lại mọi cài đặt?</string>
-    <string name="reset_message">Mọi công tắc trở về mặc định.</string>
     <string name="msg_restarted">Đã khởi động lại Security Center</string>
     <string name="msg_restart_failed">Không khởi động lại được. Hãy kiểm tra quyền root.</string>
     <string name="msg_saved">Đã lưu</string>
     <string name="msg_scope_requested">Hãy chấp nhận yêu cầu trong thông báo của LSPosed</string>
     <string name="msg_scope_failed">Yêu cầu thêm scope chưa được chấp nhận</string>
-    <string name="msg_recommended">Đã áp dụng cài đặt khuyến nghị</string>
-    <string name="msg_reset_done">Đã đặt lại cài đặt</string>
     <string name="msg_not_connected">Chưa kết nối LSPosed, không thể lưu</string>
 
     <!-- Charging -->
@@ -132,6 +123,9 @@
     <string name="mode_system">Theo hệ thống</string>
     <string name="mode_light">Sáng</string>
     <string name="mode_dark">Tối</string>
+    <string name="lang_title">Ngôn ngữ</string>
+    <string name="lang_vi">Tiếng Việt</string>
+    <string name="lang_en">English</string>
     <string name="t_dynamic">Màu động</string>
     <string name="t_dynamic_s">Dùng màu từ hình nền.</string>
     <string name="card_about">Giới thiệu</string>
@@ -180,10 +174,6 @@
     <string name="g_live">Dịch trực tiếp</string>
     <string name="g_live_s">Trong Circle to Search, chạm Dịch và tiếp tục dịch khi cuộn trang.</string>
 
-    <string name="scope_system">System framework</string>
-    <string name="scope_systemui">System UI</string>
-    <string name="scope_xiaoai">XiaoAi</string>
-    <string name="scope_google">App Google</string>
     <string name="card_scopes">Scope LSPosed</string>
     <string name="scopes_info">Mỗi tính năng chỉ hoạt động trong các scope ghi trên thẻ của nó. App có thể được yêu cầu thêm tại đây; System framework phải tự tick trong LSPosed, rồi khởi động lại.</string>
     <string name="action_request_scopes">Yêu cầu các scope còn thiếu</string>

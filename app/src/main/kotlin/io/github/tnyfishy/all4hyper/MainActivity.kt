@@ -16,10 +16,8 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.BatteryChargingFull
 import androidx.compose.material.icons.rounded.Home
-import androidx.compose.material.icons.rounded.Language
 import androidx.compose.material.icons.rounded.Memory
 import androidx.compose.material.icons.rounded.Settings
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
@@ -27,7 +25,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -41,8 +38,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import io.github.tnyfishy.all4hyper.ui.All4HyperTheme
 import io.github.tnyfishy.all4hyper.ui.FloatingBarHeight
 import io.github.tnyfishy.all4hyper.ui.FloatingNavBar
@@ -80,7 +79,6 @@ private fun AppRoot(appearance: Appearance) {
     var root by remember { mutableStateOf(RootState.Checking) }
     var rootCheck by remember { mutableIntStateOf(0) }
     var restarting by remember { mutableStateOf(false) }
-    var confirmReset by remember { mutableStateOf(false) }
     var companion by remember { mutableStateOf(CompanionState.Unknown) }
 
     // The first su call is what makes the root manager ask for permission.
@@ -140,11 +138,6 @@ private fun AppRoot(appearance: Appearance) {
                 say(R.string.msg_scope_requested)
             }
         },
-        recommended = {
-            store.applyRecommended()
-            say(R.string.msg_recommended)
-        },
-        reset = { confirmReset = true },
     )
 
     val googleActions = GoogleActions(
@@ -199,7 +192,7 @@ private fun AppRoot(appearance: Appearance) {
         NavItem(stringResource(R.string.nav_home), Icons.Rounded.Home),
         NavItem(stringResource(R.string.nav_charging), Icons.Rounded.BatteryChargingFull),
         NavItem(stringResource(R.string.nav_system), Icons.Rounded.Memory),
-        NavItem(stringResource(R.string.nav_google), Icons.Rounded.Language),
+        NavItem(stringResource(R.string.nav_google), ImageVector.vectorResource(R.drawable.ic_google), multicolor = true),
         NavItem(stringResource(R.string.nav_settings), Icons.Rounded.Settings),
     )
     val titles = listOf(stringResource(R.string.app_name)) + items.drop(1).map { it.label }
@@ -224,7 +217,7 @@ private fun AppRoot(appearance: Appearance) {
             HorizontalPager(pager, Modifier.fillMaxSize(), beyondViewportPageCount = 1) { page ->
                 Page {
                     when (page) {
-                        0 -> homePage(link, store, root, restarting, actions)
+                        0 -> homePage(link, root, restarting, actions)
                         1 -> chargingPage(store) { say(R.string.msg_saved) }
                         2 -> systemPage(store)
                         3 -> googlePage(link, store, companion, root, googleActions)
@@ -243,23 +236,5 @@ private fun AppRoot(appearance: Appearance) {
                 modifier = Modifier.align(Alignment.BottomCenter),
             )
         }
-    }
-
-    if (confirmReset) {
-        AlertDialog(
-            onDismissRequest = { confirmReset = false },
-            title = { Text(stringResource(R.string.reset_title)) },
-            text = { Text(stringResource(R.string.reset_message)) },
-            confirmButton = {
-                TextButton(onClick = {
-                    confirmReset = false
-                    store.reset()
-                    say(R.string.msg_reset_done)
-                }) { Text(stringResource(R.string.action_reset)) }
-            },
-            dismissButton = {
-                TextButton(onClick = { confirmReset = false }) { Text(stringResource(R.string.action_cancel)) }
-            },
-        )
     }
 }

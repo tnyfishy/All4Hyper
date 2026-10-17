@@ -11,12 +11,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.AutoAwesome
 import androidx.compose.material.icons.rounded.CheckCircle
 import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.material.icons.rounded.RestartAlt
 import androidx.compose.material.icons.rounded.Warning
-import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -28,7 +26,6 @@ import androidx.compose.material3.LinearWavyProgressIndicator
 import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -37,7 +34,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import io.github.tnyfishy.all4hyper.Link
 import io.github.tnyfishy.all4hyper.R
-import io.github.tnyfishy.all4hyper.Store
 
 enum class RootState { Checking, Granted, Denied }
 
@@ -45,13 +41,10 @@ class HomeActions(
     val restart: () -> Unit,
     val recheck: () -> Unit,
     val addScope: () -> Unit,
-    val recommended: () -> Unit,
-    val reset: () -> Unit,
 )
 
-fun LazyListScope.homePage(link: Link, store: Store, root: RootState, restarting: Boolean, actions: HomeActions) {
+fun LazyListScope.homePage(link: Link, root: RootState, restarting: Boolean, actions: HomeActions) {
     item { Hero(link, root, restarting, actions) }
-    item { QuickCard(store, actions) }
 }
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class, ExperimentalLayoutApi::class)
@@ -114,33 +107,6 @@ private fun Hero(link: Link, root: RootState, restarting: Boolean, actions: Home
                     Text(stringResource(R.string.action_recheck), modifier = Modifier.padding(start = 8.dp))
                 }
             }
-        }
-    }
-}
-
-@OptIn(ExperimentalLayoutApi::class)
-@Composable
-private fun QuickCard(store: Store, actions: HomeActions) {
-    SectionCard(stringResource(R.string.quick_title)) {
-        FlowRow(
-            Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 12.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-        ) {
-            val on = Features.all.count { store.bool(it.key) }
-            SuggestionChip(onClick = {}, label = { Text(stringResource(R.string.quick_features, on)) })
-            AssistChip(
-                onClick = actions.recommended,
-                enabled = store.writable,
-                label = { Text(stringResource(R.string.action_recommended)) },
-                leadingIcon = { Icon(Icons.Rounded.AutoAwesome, contentDescription = null, modifier = Modifier.size(18.dp)) },
-            )
-            AssistChip(
-                onClick = actions.reset,
-                enabled = store.writable,
-                label = { Text(stringResource(R.string.action_reset)) },
-                leadingIcon = { Icon(Icons.Rounded.RestartAlt, contentDescription = null, modifier = Modifier.size(18.dp)) },
-            )
         }
     }
 }

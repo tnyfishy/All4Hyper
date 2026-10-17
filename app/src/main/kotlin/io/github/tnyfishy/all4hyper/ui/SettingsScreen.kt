@@ -22,6 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import io.github.tnyfishy.all4hyper.Appearance
 import io.github.tnyfishy.all4hyper.Config
+import io.github.tnyfishy.all4hyper.Language
 import io.github.tnyfishy.all4hyper.R
 import io.github.tnyfishy.all4hyper.Store
 
@@ -41,6 +42,16 @@ fun LazyListScope.settingsPage(store: Store, appearance: Appearance) {
     }
     item {
         SectionCard(stringResource(R.string.card_appearance)) {
+            val context = LocalContext.current
+            ChoiceRow(
+                title = stringResource(R.string.lang_title),
+                summary = null,
+                options = listOf(R.string.lang_vi, R.string.lang_en).map { stringResource(it) },
+                selected = Language.supported.indexOf(Language.current(context)),
+                enabled = true,
+                onSelect = { Language.set(context, Language.supported[it]) },
+            )
+            CardDivider()
             ChoiceRow(
                 title = stringResource(R.string.mode_title),
                 summary = null,

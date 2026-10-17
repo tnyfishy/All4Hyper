@@ -36,18 +36,6 @@ class Store(private val prefs: SharedPreferences?) {
     fun put(key: String, value: Int) = write { putInt(key, value) }
     fun put(key: String, value: String) = write { putString(key, value) }
 
-    /** Back to the module's defaults. */
-    fun reset() = write { clear() }
-
-    /** Turns on the settings most people want: the 80% overnight hold off and no common limit. */
-    fun applyRecommended() = write {
-        putBoolean(Config.ENABLED, true)
-        putBoolean(Config.KILL_NIGHT_ENTRY, true)
-        putBoolean(Config.KILL_NIGHT_STATE, true)
-        putBoolean(Config.OVERRIDE_LIMIT, true)
-        putInt(Config.LIMIT_PERCENT, Config.LIMIT_UNLIMITED)
-    }
-
     private fun write(edit: SharedPreferences.Editor.() -> Unit) {
         prefs?.edit()?.apply(edit)?.apply()
         revision++

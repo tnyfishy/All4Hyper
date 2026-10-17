@@ -44,10 +44,6 @@ object Features {
     val googleVibrate = Toggle(Config.GOOGLE_CIRCLE_VIBRATE, R.string.g_vibrate, R.string.g_vibrate_s)
     val googleGms = Toggle(Config.GOOGLE_GMS, R.string.g_gms, R.string.g_gms_s)
     val googleLive = Toggle(Config.GOOGLE_LIVE_TRANSLATE, R.string.g_live, R.string.g_live_s)
-
-    /** Every plain switch that changes behavior; the count on the home screen is taken from these. */
-    val all: List<Toggle> = nightCharge + chargeLimit + chargeExtras + power + permissions + network +
-        listOf(googlePower, googleNav, googleGms, googleLive)
 }
 
 /** The LSPosed scopes each Google feature works in on HyperOS. */
@@ -58,13 +54,6 @@ object GoogleScopes {
         Config.GOOGLE_GMS -> listOf(Config.SYSTEM_SCOPE, Config.SYSTEM_UI)
         Config.GOOGLE_LIVE_TRANSLATE -> listOf(Config.GOOGLE_APP)
         else -> emptyList()
-    }
-
-    @StringRes fun label(scope: String): Int = when (scope) {
-        Config.SYSTEM_SCOPE -> R.string.scope_system
-        Config.SYSTEM_UI -> R.string.scope_systemui
-        Config.XIAOAI -> R.string.scope_xiaoai
-        else -> R.string.scope_google
     }
 
     val features = listOf(Config.GOOGLE_POWER, Config.GOOGLE_NAV, Config.GOOGLE_GMS, Config.GOOGLE_LIVE_TRANSLATE)

@@ -19,7 +19,7 @@ Một module LSPosed (libxposed API 102) cho Xiaomi HyperOS, kèm app cài đặ
 - `app/src/main/kotlin/.../ui/`: `Theme`, `Components`, `NavBar` (thanh nổi bám theo pager), 5 trang: Home, Charging, System, Google, Settings.
 - `companion/` + `build-companion.py` → `app/src/main/assets/coogle-companion.zip`: bản sao companion của XGoogle (id `coogle_companion`), chỉ khác 3 file: thêm cờ `/data/adb/coogle_power_off` trong `boot-completed.sh`, dọn cờ trong `uninstall.sh`, `module.prop` (versionCode 132).
 - `NOTICE.txt`, `README.md`: nguồn gốc và giấy phép.
-- Phiên bản hiện tại: `0.4.1` (versionCode 5). **Quy tắc: mỗi lần build APK mới phải tăng `versionCode` (+1) và `versionName` trong `app/build.gradle` trước khi build/đẩy lên `main`, để người dùng cập nhật đè được lên bản cũ.** `applicationId io.github.tnyfishy.all4hyper`, minSdk 35, chỉ arm64-v8a (DexKit).
+- Phiên bản hiện tại: `0.5.0` (versionCode 6). **Quy tắc: mỗi lần build APK mới phải tăng `versionCode` (+1) và `versionName` trong `app/build.gradle` trước khi build/đẩy lên `main`, để người dùng cập nhật đè được lên bản cũ.** `applicationId io.github.tnyfishy.all4hyper`, minSdk 35, chỉ arm64-v8a (DexKit).
 
 ## Quyết định quan trọng
 - **MeowPower không có LICENSE** và app của nó có trang kêu gọi ủng hộ. Hook của All4Hyper dùng cùng lớp/hàm đích nhưng viết lại, không sao chép. README và màn hình "Giới thiệu" ghi nguồn.
