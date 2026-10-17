@@ -87,7 +87,7 @@ class MainActivity : ComponentActivity() {
                 window.attributes = window.attributes.also { it.preferredDisplayModeId = best.modeId }
             }
             window.isFrameRatePowerSavingsBalanced = false
-            window.isFrameRateBoostOnTouchEnabled = true
+            window.setFrameRateBoostOnTouchEnabled(true)
         }
     }
 }
