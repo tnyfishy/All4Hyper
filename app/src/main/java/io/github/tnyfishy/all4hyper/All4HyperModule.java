@@ -5,12 +5,15 @@ import android.util.Log;
 import io.github.libxposed.api.XposedModule;
 import io.github.libxposed.api.XposedModuleInterface;
 import io.github.tnyfishy.all4hyper.google.GoogleEntry;
+import io.github.tnyfishy.all4hyper.hooks.GmsDozeSystemHooks;
+import io.github.tnyfishy.all4hyper.hooks.PowerKeeperHooks;
 import io.github.tnyfishy.all4hyper.hooks.SecurityCenterHooks;
 
 /**
  * Entry point. Security Center runs in several processes (the power saver service lives in
  * :remote) and each gets its own copy of the hooks; the Google features are spread over the system
- * server, SystemUI, XiaoAi and the Google app.
+ * server, SystemUI, XiaoAi and the Google app; the Power Keeper hooks over Power Keeper, Mi Settings
+ * and the system server.
  */
 public final class All4HyperModule extends XposedModule {
     private static final String TAG = "All4Hyper";
@@ -31,6 +34,7 @@ public final class All4HyperModule extends XposedModule {
 
     @Override public void onSystemServerStarting(XposedModuleInterface.SystemServerStartingParam param) {
         GoogleEntry.hookSystem(param.getClassLoader());
+        GmsDozeSystemHooks.install(this, param.getClassLoader(), prefs);
     }
 
     @Override public void onPackageReady(XposedModuleInterface.PackageReadyParam param) {
@@ -39,6 +43,12 @@ public final class All4HyperModule extends XposedModule {
             case Config.SECURITY_CENTER:
                 log(Log.INFO, TAG, "Security Center ready in " + processName);
                 SecurityCenterHooks.install(this, param.getClassLoader(), prefs);
+                break;
+            case Config.POWER_KEEPER:
+                PowerKeeperHooks.install(this, param.getClassLoader(), prefs, param.getApplicationInfo().sourceDir);
+                break;
+            case Config.MI_SETTINGS:
+                PowerKeeperHooks.installMiSettings(this, param.getClassLoader(), prefs, param.getApplicationInfo().sourceDir);
                 break;
             case Config.SYSTEM_UI:
             case Config.XIAOAI:

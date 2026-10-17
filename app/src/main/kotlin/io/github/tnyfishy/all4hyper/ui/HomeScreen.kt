@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.BatteryChargingFull
 import androidx.compose.material.icons.rounded.Bolt
 import androidx.compose.material.icons.rounded.CheckCircle
 import androidx.compose.material.icons.rounded.Memory
@@ -50,7 +51,7 @@ import io.github.tnyfishy.all4hyper.Store
 enum class RootState { Checking, Granted, Denied }
 
 /** What the restart button can restart. */
-enum class RestartTarget { SecurityCenter, SystemUi, System }
+enum class RestartTarget { SecurityCenter, PowerKeeper, SystemUi, System }
 
 class HomeActions(
     val restart: (RestartTarget) -> Unit,
@@ -187,6 +188,10 @@ fun RestartAction(enabled: Boolean, restarting: Boolean, onRestart: (RestartTarg
             RestartItem(R.string.restart_security_center, Icons.Rounded.Security) {
                 menu = false
                 onRestart(RestartTarget.SecurityCenter)
+            }
+            RestartItem(R.string.restart_power_keeper, Icons.Rounded.BatteryChargingFull) {
+                menu = false
+                onRestart(RestartTarget.PowerKeeper)
             }
             RestartItem(R.string.restart_system_ui, Icons.Rounded.PhoneAndroid) {
                 menu = false

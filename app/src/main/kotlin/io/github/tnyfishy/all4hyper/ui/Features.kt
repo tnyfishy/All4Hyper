@@ -27,6 +27,15 @@ object Features {
         Toggle(Config.NO_INSTALL_VERIFY, R.string.t_install, R.string.t_install_s),
     )
 
+    val powerKeeper = listOf(
+        Toggle(Config.PK_LOCK_MAX_FPS, R.string.pk_lock_fps, R.string.pk_lock_fps_s),
+        Toggle(Config.PK_NO_DISPLAY_CTRL, R.string.pk_display_ctrl, R.string.pk_display_ctrl_s),
+        Toggle(Config.PK_CUSTOM_REFRESH, R.string.pk_custom_refresh, R.string.pk_custom_refresh_s),
+        Toggle(Config.PK_DONT_KILL, R.string.pk_dont_kill, R.string.pk_dont_kill_s),
+        Toggle(Config.PK_KEEP_WHITELIST, R.string.pk_keep_whitelist, R.string.pk_keep_whitelist_s),
+        Toggle(Config.PK_GMS_DOZE, R.string.pk_gms_doze, R.string.pk_gms_doze_s),
+    )
+
     val googlePower = Toggle(Config.GOOGLE_POWER, R.string.g_power, R.string.g_power_s)
     val googleNav = Toggle(Config.GOOGLE_NAV, R.string.g_nav, R.string.g_nav_s)
     val googleVibrate = Toggle(Config.GOOGLE_CIRCLE_VIBRATE, R.string.g_vibrate, R.string.g_vibrate_s)
@@ -39,6 +48,7 @@ object Features {
         R.string.card_perm to permissions,
         R.string.card_net to network,
         R.string.nav_google to listOf(googlePower, googleNav, googleVibrate, googleGms, googleLive),
+        R.string.card_power_keeper to powerKeeper,
     )
 
     /** A sub-switch only does something while the switch it follows is on. */

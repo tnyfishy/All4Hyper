@@ -127,4 +127,24 @@
     <string name="restart_system_title">Khởi động lại hệ thống?</string>
     <string name="restart_system_message">Android khởi động lại phần mềm (soft reboot): màn hình tối trong chốc lát và mọi app bị đóng. Dữ liệu không mất.</string>
     <string name="mode_amoled">AMOLED</string>
+    <!-- Khác: Power Keeper (từ HyperCeiler) -->
+    <string name="nav_other">Khác</string>
+    <string name="card_power_keeper">Power Keeper</string>
+    <string name="restart_power_keeper">Power Keeper</string>
+    <string name="pk_scope_ok">Power Keeper đã trong scope</string>
+    <string name="pk_scope_missing">Thiếu scope</string>
+    <string name="pk_scope_detail">Cần Power Keeper và Mi Settings (cho tần số quét theo app) trong scope của module.</string>
+    <string name="pk_lock_fps">Khóa tần số quét tối đa</string>
+    <string name="pk_lock_fps_s">Power Keeper không đổi tần số quét theo cảnh, màn hình giữ mức cao nhất.</string>
+    <string name="pk_display_ctrl">Không giảm màn hình khi nóng</string>
+    <string name="pk_display_ctrl_s">Power Keeper không hạ độ sáng hay tần số quét vì nhiệt độ.</string>
+    <string name="pk_custom_refresh">Tần số quét cao theo từng app</string>
+    <string name="pk_custom_refresh_s">Mở trang chọn tần số quét cho từng app trong Cài đặt và cho Power Keeper làm theo. Cần scope Mi Settings.</string>
+    <string name="pk_dont_kill">Hạn chế đóng app nền</string>
+    <string name="pk_dont_kill_s">Power Keeper không đóng tiến trình app. Có thể tốn pin hơn.</string>
+    <string name="pk_keep_whitelist">Giữ danh sách tối ưu pin</string>
+    <string name="pk_keep_whitelist_s">Không cho Power Keeper tự thêm lại hàng loạt app vào danh sách không tối ưu pin, giữ lựa chọn của bạn.</string>
+    <string name="pk_gms_doze">GMS kết nối mạng mọi lúc</string>
+    <string name="pk_gms_doze_s">Dịch vụ Google Play giữ mạng, báo thức và thông báo đẩy khi máy ngủ. Cần scope Hệ thống.</string>
+    <string name="pk_note">Đổi công tắc xong, khởi động lại Power Keeper từ nút khởi động lại trên thanh tiêu đề. "GMS kết nối mạng mọi lúc" cần khởi động lại hệ thống.</string>
 </resources>

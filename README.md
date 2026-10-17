@@ -1,9 +1,10 @@
 # All4Hyper
 
-An LSPosed module (libxposed API 102) with a Material 3 settings app for Xiaomi HyperOS. It does two things, each on its own tab:
+An LSPosed module (libxposed API 102) with a Material 3 settings app for Xiaomi HyperOS. It does three things, each on its own tab:
 
 - **Security Center:** lifts its power, permission and network limits, one switch at a time.
 - **Google:** long-press power → Gemini / Assistant, long-press the navigation handle → Circle to Search, live translate, and the GMS China restriction removed.
+- **Other:** Power Keeper hooks from HyperCeiler.
 
 ## Security Center (tab System)
 
@@ -22,6 +23,19 @@ An LSPosed module (libxposed API 102) with a Material 3 settings app for Xiaomi 
 Every switch applies immediately; Security Center reads the setting on each call.
 
 > ⚠️ Lifting AppOps restrictions and install verification lowers the device's protection. Turn on only what you need. Switching off thermal throttling and charge protection is at your own risk.
+
+## Power Keeper (tab Other)
+
+| Switch | Works in (LSPosed scope) |
+|---|---|
+| Lock maximum refresh rate (no per-scene rate switching) | Power Keeper |
+| No brightness / refresh rate limits when hot | Power Keeper |
+| Per-app high refresh rate | Power Keeper, Mi Settings |
+| Keep background apps (Power Keeper's process kill does nothing) | Power Keeper |
+| Keep the battery optimization list (no batch restore of Power Keeper's whitelist) | Power Keeper |
+| GMS online at all times (network, alarms and push in sleep) | Power Keeper, System framework |
+
+All start **off**. Restart Power Keeper after a change (restart button in the top bar); the GMS switch needs a system restart.
 
 ## Google (tab Google)
 
@@ -62,6 +76,8 @@ Bottom navigation (Home, System, Google, Settings), Vietnamese by default with E
 ## Credits and licence
 
 GPL-3.0 (see `LICENSE` at the repository root and `NOTICE.txt`). The Google features and the companion come from [XGoogle](https://github.com/Leekin2/XGoogle) by Leekin, itself a fork of Coogle by zopulus, with hooks derived from ONextBox. Live translate uses [DexKit](https://github.com/LuckyPray/DexKit).
+
+The Power Keeper hooks (*Other* tab) are ported from [HyperCeiler](https://github.com/ReChronoRain/HyperCeiler) (AGPL-3.0); see `NOTICE.txt`.
 
 The Security Center hooks' targets (class and method names, which call does what) were found by reading [MeowPower](https://github.com/Xposed-Modules-Repo/io.github.yuhj319.meowpower) by yuhj319. MeowPower has no licence and its app shows a support page; this project re-implements the same hooks from scratch rather than copying its code. If you find them useful, consider supporting the original author.
 

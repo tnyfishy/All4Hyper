@@ -13,9 +13,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.outlined.Tune
+import androidx.compose.material.icons.outlined.Widgets
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material.icons.rounded.Tune
+import androidx.compose.material.icons.rounded.Widgets
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -50,6 +52,7 @@ import io.github.tnyfishy.all4hyper.ui.RootState
 import io.github.tnyfishy.all4hyper.ui.ShrinkingTopBar
 import io.github.tnyfishy.all4hyper.ui.googlePage
 import io.github.tnyfishy.all4hyper.ui.homePage
+import io.github.tnyfishy.all4hyper.ui.otherPage
 import io.github.tnyfishy.all4hyper.ui.settingsPage
 import io.github.tnyfishy.all4hyper.ui.systemPage
 import kotlinx.coroutines.delay
@@ -166,6 +169,7 @@ private fun AppRoot(appearance: Appearance) {
                 restarting = true
                 val done = when (target) {
                     RestartTarget.SecurityCenter -> Root.restart(Config.SECURITY_CENTER)
+                    RestartTarget.PowerKeeper -> Root.restart(Config.POWER_KEEPER)
                     RestartTarget.SystemUi -> Root.restartSystemUi()
                     RestartTarget.System -> Root.softReboot()
                 }
@@ -180,6 +184,16 @@ private fun AppRoot(appearance: Appearance) {
             }
         },
     )
+
+    val requestOtherScope = {
+        (link as? Link.Ready)?.let { ready ->
+            Connection.requestScope(ready.service, listOf(Config.POWER_KEEPER, Config.MI_SETTINGS)) { approved ->
+                if (!approved) say(R.string.msg_scope_failed)
+            }
+            say(R.string.msg_scope_requested)
+        }
+        Unit
+    }
 
     val googleActions = GoogleActions(
         install = {
@@ -226,6 +240,7 @@ private fun AppRoot(appearance: Appearance) {
         NavItem(stringResource(R.string.nav_home), Icons.Outlined.Home, Icons.Rounded.Home),
         NavItem(stringResource(R.string.nav_system), Icons.Outlined.Tune, Icons.Rounded.Tune),
         NavItem(stringResource(R.string.nav_google), google),
+        NavItem(stringResource(R.string.nav_other), Icons.Outlined.Widgets, Icons.Rounded.Widgets),
         NavItem(stringResource(R.string.nav_settings), Icons.Outlined.Settings, Icons.Rounded.Settings),
     )
     val titles = listOf(stringResource(R.string.app_name)) + items.drop(1).map { it.label }
@@ -250,6 +265,7 @@ private fun AppRoot(appearance: Appearance) {
                     0 -> homePage(link, store, actions)
                     1 -> systemPage(store)
                     2 -> googlePage(store, companion, root, googleActions)
+                    3 -> otherPage(store, link, requestOtherScope)
                     else -> settingsPage(store, appearance)
                 }
             }

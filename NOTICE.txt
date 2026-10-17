@@ -23,6 +23,16 @@ The class and method names these hooks target, and what each call does, were fou
 MeowPower by yuhj319 (https://github.com/Xposed-Modules-Repo/io.github.yuhj319.meowpower), which has no
 licence. The code here is a fresh implementation, not a copy.
 
+Power Keeper hooks (app/src/main/java/.../hooks/PowerKeeperHooks.java, GmsDozeSystemHooks.java)
+-------------------------------------------------------------------------------------------------
+Ported from HyperCeiler (https://github.com/ReChronoRain/HyperCeiler, AGPL-3.0, by the HyperCeiler
+contributors): library/libhook/.../rules/powerkeeper (CustomRefreshRate, DisableGetDisplayCtrlCode,
+DontKillApps, GmsDozeFix, LockMaxFps, PreventBatteryWitelist), rules/misettings/CustomRefreshRate and
+rules/systemframework/others/GMSDozeFixFramework. They were rewritten onto All4Hyper's hook kit; the
+targets and behaviour are HyperCeiler's, except that DomesticPolicyManager#deferBroadcast is only
+overridden for GMS's own broadcasts. AGPL-3.0 section 13 and GPL-3.0 section 13 allow the
+combination; these files remain under AGPL-3.0 terms.
+
 Dependencies
 ------------
 DexKit (https://github.com/LuckyPray/DexKit), libxposed API/interface/service, AndroidX Compose,

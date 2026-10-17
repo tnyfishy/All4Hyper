@@ -13,6 +13,7 @@ public final class HookSettings {
     public final boolean killPowerMode, killSuperSave, noFpsThrottle, noThermalLimit;
     public final boolean noAppOpsRestrict, noKillBackground, allowAutostart;
     public final boolean noNetworkRestrict, noBgNetworkRestrict, noTrafficCutoff, noTetherLimit, noInstallVerify;
+    public final boolean pkLockMaxFps, pkNoDisplayCtrl, pkDontKill, pkGmsDoze, pkKeepWhitelist, pkCustomRefresh;
 
     private HookSettings(SharedPreferences p) {
         enabled = bool(p, Config.ENABLED);
@@ -29,6 +30,12 @@ public final class HookSettings {
         noTrafficCutoff = bool(p, Config.NO_TRAFFIC_CUTOFF);
         noTetherLimit = bool(p, Config.NO_TETHER_LIMIT);
         noInstallVerify = bool(p, Config.NO_INSTALL_VERIFY);
+        pkLockMaxFps = bool(p, Config.PK_LOCK_MAX_FPS);
+        pkNoDisplayCtrl = bool(p, Config.PK_NO_DISPLAY_CTRL);
+        pkDontKill = bool(p, Config.PK_DONT_KILL);
+        pkGmsDoze = bool(p, Config.PK_GMS_DOZE);
+        pkKeepWhitelist = bool(p, Config.PK_KEEP_WHITELIST);
+        pkCustomRefresh = bool(p, Config.PK_CUSTOM_REFRESH);
     }
 
     public static HookSettings read(SharedPreferences prefs) {

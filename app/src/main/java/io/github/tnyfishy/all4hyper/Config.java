@@ -44,6 +44,23 @@ public final class Config {
     /** Circle to Search live (scroll) translation. */
     public static final String GOOGLE_LIVE_TRANSLATE = "google_live_translate";
 
+    // Power Keeper (com.miui.powerkeeper), from HyperCeiler
+    /** Power Keeper stops switching the refresh rate per scene, so the display keeps its top rate. */
+    public static final String PK_LOCK_MAX_FPS = "pk_lock_max_fps";
+    /** Power Keeper gets no display control code from its thermal manager: no heat-driven dimming or rate drop. */
+    public static final String PK_NO_DISPLAY_CTRL = "pk_no_display_ctrl";
+    /** Power Keeper's ProcessManager.kill does nothing. */
+    public static final String PK_DONT_KILL = "pk_dont_kill";
+    /** Google Play services keeps network, alarms and push while the phone sleeps (Power Keeper and system). */
+    public static final String PK_GMS_DOZE = "pk_gms_doze";
+    /** Power Keeper cannot restore its batch of apps to the battery optimization whitelist. */
+    public static final String PK_KEEP_WHITELIST = "pk_keep_whitelist";
+    /** Per-app high refresh rate: unlocks the page in Mi Settings and the switch in Power Keeper. */
+    public static final String PK_CUSTOM_REFRESH = "pk_custom_refresh";
+
+    public static final String POWER_KEEPER = "com.miui.powerkeeper";
+    public static final String MI_SETTINGS = "com.xiaomi.misettings";
+
     public static final String SYSTEM_SCOPE = "system";
     public static final String SYSTEM_UI = "com.android.systemui";
     public static final String XIAOAI = "com.miui.voiceassist";

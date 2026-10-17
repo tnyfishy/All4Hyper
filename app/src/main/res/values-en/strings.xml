@@ -127,4 +127,24 @@
     <string name="restart_system_title">Restart the system?</string>
     <string name="restart_system_message">Android restarts its software (a soft reboot): the screen goes dark for a moment and every app is closed. No data is lost.</string>
     <string name="mode_amoled">AMOLED</string>
+    <!-- Other: Power Keeper (from HyperCeiler) -->
+    <string name="nav_other">Other</string>
+    <string name="card_power_keeper">Power Keeper</string>
+    <string name="restart_power_keeper">Power Keeper</string>
+    <string name="pk_scope_ok">Power Keeper is in scope</string>
+    <string name="pk_scope_missing">Scope missing</string>
+    <string name="pk_scope_detail">Power Keeper and Mi Settings (for per-app refresh rate) must be in this module\'s scope.</string>
+    <string name="pk_lock_fps">Lock maximum refresh rate</string>
+    <string name="pk_lock_fps_s">Power Keeper stops changing the refresh rate per scene; the display stays at its top rate.</string>
+    <string name="pk_display_ctrl">No display limits when hot</string>
+    <string name="pk_display_ctrl_s">Power Keeper does not lower brightness or refresh rate because of heat.</string>
+    <string name="pk_custom_refresh">Per-app high refresh rate</string>
+    <string name="pk_custom_refresh_s">Unlocks the per-app refresh rate page in Settings and has Power Keeper follow it. Needs the Mi Settings scope.</string>
+    <string name="pk_dont_kill">Keep background apps</string>
+    <string name="pk_dont_kill_s">Power Keeper does not kill app processes. May use more battery.</string>
+    <string name="pk_keep_whitelist">Keep the battery optimization list</string>
+    <string name="pk_keep_whitelist_s">Stops Power Keeper from putting its batch of apps back on the unoptimized list, so your choices stay.</string>
+    <string name="pk_gms_doze">GMS online at all times</string>
+    <string name="pk_gms_doze_s">Google Play services keeps network, alarms and push while the phone sleeps. Needs the System scope.</string>
+    <string name="pk_note">After changing a switch, restart Power Keeper from the restart button in the top bar. \"GMS online at all times\" needs a system restart.</string>
 </resources>
