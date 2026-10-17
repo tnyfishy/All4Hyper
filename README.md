@@ -83,4 +83,4 @@ python3 build-companion.py   # only after changing companion/
 ./gradlew assembleRelease
 ```
 
-The APK is `app/build/outputs/apk/release/app-release.apk`, signed with the building machine's debug key; updates must use the same key.
+The APK is `app/build/outputs/apk/release/app-release.apk`, signed with the key in `signing/all4hyper.jks` (the password is in `app/build.gradle`). That key is public, so every build installs over the previous one as long as its `versionCode` is higher; it does not prove who built an APK. Builds before 0.6.1 used a throwaway key per build: uninstall those once.

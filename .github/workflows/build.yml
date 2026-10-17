@@ -67,4 +67,4 @@ jobs:
             --prerelease \
             --target "$GITHUB_SHA" \
             --title "Snapshot ${{ steps.apk.outputs.version }} (temporary)" \
-            --notes "Temporary build of commit ${GITHUB_SHA::7}. It is replaced by the next build. The APK is signed with a debug key that is generated on each build, so uninstall the previous build before installing a new one."
+            --notes "Temporary build of commit ${GITHUB_SHA::7}. It is replaced by the next build. Every build is signed with the same key (signing/all4hyper.jks), so it installs over the previous build when its version is higher. A build from before 0.6.1 was signed with a different key: uninstall it once first."

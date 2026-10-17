@@ -10,13 +10,23 @@ android {
         applicationId 'io.github.tnyfishy.all4hyper'
         minSdk 35
         targetSdk 36
-        versionCode 7
-        versionName '0.6.0'
+        versionCode 8
+        versionName '0.6.1'
         // DexKit (live translate) ships a native library; HyperOS phones are 64-bit.
         ndk { abiFilters 'arm64-v8a' }
     }
+    // One fixed key, kept in the repository (signing/all4hyper.jks), so every build is signed alike and
+    // installs over the previous one. It is public, so it keeps updates working; it does not prove who built an APK.
+    signingConfigs {
+        release {
+            storeFile rootProject.file('signing/all4hyper.jks')
+            storePassword 'all4hyper'
+            keyAlias 'all4hyper'
+            keyPassword 'all4hyper'
+        }
+    }
     buildTypes {
-        release { signingConfig signingConfigs.debug; minifyEnabled true; shrinkResources true; proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro' }
+        release { signingConfig signingConfigs.release; minifyEnabled true; shrinkResources true; proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro' }
     }
     compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
     buildFeatures { compose true }

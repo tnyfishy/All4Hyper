@@ -19,9 +19,10 @@ Một module LSPosed (libxposed API 102) cho Xiaomi HyperOS, kèm app cài đặ
 - `app/src/main/kotlin/.../ui/`: `Theme`, `Components`, `NavBar` (NavigationBar M3), 4 trang: Home, System, Google, Settings.
 - `companion/` + `build-companion.py` → `app/src/main/assets/coogle-companion.zip`: bản sao companion của XGoogle (id `coogle_companion`), chỉ khác 3 file: thêm cờ `/data/adb/coogle_power_off` trong `boot-completed.sh`, dọn cờ trong `uninstall.sh`, `module.prop` (versionCode 132).
 - `NOTICE.txt`, `README.md`: nguồn gốc và giấy phép.
-- Phiên bản hiện tại: `0.6.0` (versionCode 7). **Quy tắc: mỗi lần build APK mới phải tăng `versionCode` (+1) và `versionName` trong `app/build.gradle` trước khi build/đẩy lên `main`, để người dùng cập nhật đè được lên bản cũ.** `applicationId io.github.tnyfishy.all4hyper`, minSdk 35, chỉ arm64-v8a (DexKit).
+- Phiên bản hiện tại: `0.6.1` (versionCode 8). **Quy tắc: mỗi lần build APK mới phải tăng `versionCode` (+1) và `versionName` trong `app/build.gradle` trước khi build/đẩy lên `main`, để người dùng cập nhật đè được lên bản cũ.** `applicationId io.github.tnyfishy.all4hyper`, minSdk 35, chỉ arm64-v8a (DexKit).
 
 ## Quyết định quan trọng
+- **Khóa ký APK cố định** nằm trong repo (`signing/all4hyper.jks`, mật khẩu trong `app/build.gradle`), theo lựa chọn của người dùng, để cập nhật đè được. Repo công khai nên khóa này công khai; nếu muốn chắc chắn hơn thì chuyển sang GitHub Secrets (cần người dùng tự thêm secret) và đổi khóa (người dùng sẽ phải gỡ bản cũ một lần). Bản trước 0.6.1 ký bằng khóa debug tạm nên phải gỡ một lần.
 - **MeowPower không có LICENSE** và app của nó có trang kêu gọi ủng hộ. Hook của All4Hyper dùng cùng lớp/hàm đích nhưng viết lại, không sao chép. README và màn hình "Giới thiệu" ghi nguồn.
 - **XGoogle là GPL-3.0**, cùng giấy phép repo, nên dùng code của nó là hợp lệ. Vẫn giữ ghi chú nguồn trong file.
 - Trên HyperOS, nút nguồn/điều hướng chủ yếu do companion đặt `settings put system long_press_{power,home}_key launch_google_search` mỗi lần boot; hook chỉ bổ trợ. Vì vậy phải sửa companion để có công tắc tắt nút nguồn (bản gốc XGoogle bỏ qua cờ này, đã kiểm chứng).
