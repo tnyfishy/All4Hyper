@@ -9,7 +9,11 @@
 
     <!-- Home -->
     <string name="home_connecting">Đang kết nối LSPosed…</string>
-    <string name="home_active">Đang hoạt động</string>
+    <string name="home_active">Module đã kích hoạt</string>
+    <string name="card_running">Đang hoạt động</string>
+    <string name="card_running_count">Đang hoạt động (%1$d)</string>
+    <string name="running_none">Chưa bật công tắc nào. Bật hook ở thẻ Hệ thống hoặc Google, chúng sẽ hiện ở đây.</string>
+    <string name="running_unavailable">Chưa kết nối LSPosed nên chưa đọc được các công tắc.</string>
     <string name="home_no_scope">Thiếu scope</string>
     <string name="home_no_scope_detail">Thêm Security Center vào scope của module trong LSPosed.</string>
     <string name="home_inactive">Chưa hoạt động</string>

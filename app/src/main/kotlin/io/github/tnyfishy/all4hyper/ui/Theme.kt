@@ -64,7 +64,7 @@ private val DarkScheme = darkColorScheme(
     inverseSurface = Color(0xFFE3E2E9), inverseOnSurface = Color(0xFF2F3036), inversePrimary = Color(0xFF3F5BA9),
     surfaceDim = Color(0xFF121318), surfaceBright = Color(0xFF38393F),
     surfaceContainerLowest = Color(0xFF0D0E13), surfaceContainerLow = Color(0xFF1A1B20),
-    surfaceContainer = Color(0xFF1E1F25), surfaceContainerHigh = Color(0xFF292A2F),
+    surfaceContainer = Color(0xFF1E1F25), surfaceContainerHigh = Color(0xFF2A2B31),
     surfaceContainerHighest = Color(0xFF34343A),
 )
 
@@ -92,8 +92,10 @@ private val AppTypography = Typography().let { base ->
 private fun ColorScheme.amoled() = copy(
     background = Color.Black, surface = Color.Black, surfaceDim = Color.Black,
     surfaceContainerLowest = Color.Black,
-    surfaceContainerLow = Color(0xFF0C0C0E), surfaceContainer = Color(0xFF131316),
-    surfaceContainerHigh = Color(0xFF1A1A1E), surfaceContainerHighest = Color(0xFF212126),
+    // Cards use the high container: light enough to read as a card on pure black.
+    surfaceContainerLow = Color(0xFF111114), surfaceContainer = Color(0xFF17171B),
+    surfaceContainerHigh = Color(0xFF1E1E23), surfaceContainerHighest = Color(0xFF28282E),
+    outlineVariant = Color(0xFF3A3A42),
 )
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)

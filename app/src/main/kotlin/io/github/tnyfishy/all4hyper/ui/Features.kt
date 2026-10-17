@@ -32,4 +32,15 @@ object Features {
     val googleVibrate = Toggle(Config.GOOGLE_CIRCLE_VIBRATE, R.string.g_vibrate, R.string.g_vibrate_s)
     val googleGms = Toggle(Config.GOOGLE_GMS, R.string.g_gms, R.string.g_gms_s)
     val googleLive = Toggle(Config.GOOGLE_LIVE_TRANSLATE, R.string.g_live, R.string.g_live_s)
+
+    /** Every hook switch with the card it sits on, in page order, for the home page's list of what is on. */
+    val groups: List<Pair<Int, List<Toggle>>> = listOf(
+        R.string.card_power to power,
+        R.string.card_perm to permissions,
+        R.string.card_net to network,
+        R.string.nav_google to listOf(googlePower, googleNav, googleVibrate, googleGms, googleLive),
+    )
+
+    /** A sub-switch only does something while the switch it follows is on. */
+    val parents: Map<String, String> = mapOf(googleVibrate.key to googleNav.key)
 }

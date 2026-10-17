@@ -16,12 +16,14 @@ Một module LSPosed (libxposed API 102) cho Xiaomi HyperOS, kèm app cài đặ
 - `app/src/main/java/.../hooks/`: hook Security Center viết lại từ đầu (`HookKit`, `SystemHooks`, `NetworkHooks`); hook sạc và sức khỏe pin đã bị bỏ theo yêu cầu. `Config.java` (khóa cài đặt), `HookSettings.java` (đọc cài đặt mỗi lần gọi).
 - `app/src/main/kotlin/.../google/` và `.../java/.../google/`: hook Google lấy từ XGoogle, đã đổi package, bỏ các route ColorOS (`oplus.*`). Nối dây tự viết: `GoogleEntry.kt`, `GoogleSystemHooks.kt`, `GoogleFeatures.java`, `SystemCompat.java`, `LspConfig.kt`. Cài hook chỉ khi công tắc bật.
 - `app/src/main/kotlin/.../`: `Connection.kt` (dịch vụ LSPosed + scope), `Root.kt`, `CompanionModule.kt` (cài/đọc companion, đổi phím qua root), `Store.kt`, `MainActivity.kt`.
-- `app/src/main/kotlin/.../ui/`: `Theme`, `Components`, `NavBar` (NavigationBar M3), 4 trang: Home, System, Google, Settings.
+- `app/src/main/kotlin/.../ui/`: `Theme`, `Components`, `NavBar` (NavigationBar M3), `TopBar` (tiêu đề lớn thu nhỏ dần khi cuộn, nút khởi động lại ở góc phải), 4 trang: Home (trạng thái + thẻ "Đang hoạt động" liệt kê các công tắc đang bật), System, Google, Settings.
 - `companion/` + `build-companion.py` → `app/src/main/assets/coogle-companion.zip`: bản sao companion của XGoogle (id `coogle_companion`), chỉ khác 3 file: thêm cờ `/data/adb/coogle_power_off` trong `boot-completed.sh`, dọn cờ trong `uninstall.sh`, `module.prop` (versionCode 132).
 - `NOTICE.txt`, `README.md`: nguồn gốc và giấy phép.
-- Phiên bản hiện tại: `0.6.1` (versionCode 8). **Quy tắc: mỗi lần build APK mới phải tăng `versionCode` (+1) và `versionName` trong `app/build.gradle` trước khi build/đẩy lên `main`, để người dùng cập nhật đè được lên bản cũ.** `applicationId io.github.tnyfishy.all4hyper`, minSdk 35, chỉ arm64-v8a (DexKit).
+- Phiên bản hiện tại: `0.7.0` (versionCode 9). **Quy tắc: mỗi lần build APK mới phải tăng `versionCode` (+1) và `versionName` trong `app/build.gradle` trước khi build/đẩy lên `main`, để người dùng cập nhật đè được lên bản cũ.** `applicationId io.github.tnyfishy.all4hyper`, minSdk 35, chỉ arm64-v8a (DexKit).
 
 ## Quyết định quan trọng
+- **Không thêm hook của `com.fuck.iab` (FKIAB)**: module đó giả giao dịch mua trong ứng dụng (bỏ qua xác minh thanh toán Google Play/Bazaar/Myket) để lấy nội dung trả phí miễn phí. Đã từ chối yêu cầu thêm tab "Khác" với các hook này (0.7.0).
+- Thẻ trong chế độ tối/AMOLED dùng `surfaceContainerHigh` + viền `outlineVariant` mảnh (`cardContainerColor()`, `cardBorder()` trong `Components.kt`) để nổi hẳn trên nền.
 - **Khóa ký APK cố định** nằm trong repo (`signing/all4hyper.jks`, mật khẩu trong `app/build.gradle`), theo lựa chọn của người dùng, để cập nhật đè được. Repo công khai nên khóa này công khai; nếu muốn chắc chắn hơn thì chuyển sang GitHub Secrets (cần người dùng tự thêm secret) và đổi khóa (người dùng sẽ phải gỡ bản cũ một lần). Bản trước 0.6.1 ký bằng khóa debug tạm nên phải gỡ một lần.
 - **MeowPower không có LICENSE** và app của nó có trang kêu gọi ủng hộ. Hook của All4Hyper dùng cùng lớp/hàm đích nhưng viết lại, không sao chép. README và màn hình "Giới thiệu" ghi nguồn.
 - **XGoogle là GPL-3.0**, cùng giấy phép repo, nên dùng code của nó là hợp lệ. Vẫn giữ ghi chú nguồn trong file.

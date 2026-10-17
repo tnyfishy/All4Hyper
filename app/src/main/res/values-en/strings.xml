@@ -9,7 +9,11 @@
 
     <!-- Home -->
     <string name="home_connecting">Connecting to LSPosed…</string>
-    <string name="home_active">Active</string>
+    <string name="home_active">Module active</string>
+    <string name="card_running">Running</string>
+    <string name="card_running_count">Running (%1$d)</string>
+    <string name="running_none">No switch is on yet. Turn hooks on in the System or Google tab and they show up here.</string>
+    <string name="running_unavailable">Not connected to LSPosed, so the switches cannot be read yet.</string>
     <string name="home_no_scope">Scope missing</string>
     <string name="home_no_scope_detail">Add Security Center to this module\'s scope in LSPosed.</string>
     <string name="home_inactive">Not active</string>

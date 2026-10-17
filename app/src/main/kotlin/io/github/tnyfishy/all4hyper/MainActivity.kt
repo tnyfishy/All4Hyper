@@ -17,12 +17,9 @@ import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material.icons.rounded.Tune
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.LargeTopAppBar
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -47,8 +44,10 @@ import io.github.tnyfishy.all4hyper.ui.GoogleActions
 import io.github.tnyfishy.all4hyper.ui.HomeActions
 import io.github.tnyfishy.all4hyper.ui.NavItem
 import io.github.tnyfishy.all4hyper.ui.Page
+import io.github.tnyfishy.all4hyper.ui.RestartAction
 import io.github.tnyfishy.all4hyper.ui.RestartTarget
 import io.github.tnyfishy.all4hyper.ui.RootState
+import io.github.tnyfishy.all4hyper.ui.ShrinkingTopBar
 import io.github.tnyfishy.all4hyper.ui.googlePage
 import io.github.tnyfishy.all4hyper.ui.homePage
 import io.github.tnyfishy.all4hyper.ui.settingsPage
@@ -236,14 +235,9 @@ private fun AppRoot(appearance: Appearance) {
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            LargeTopAppBar(
-                title = { Text(titles[pager.currentPage]) },
-                scrollBehavior = scrollBehavior,
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.background,
-                    scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainer,
-                ),
-            )
+            ShrinkingTopBar(titles[pager.currentPage], scrollBehavior) {
+                RestartAction(enabled = root == RootState.Granted, restarting = restarting, onRestart = actions.restart)
+            }
         },
         bottomBar = {
             AppNavigationBar(items, pager.currentPage) { scope.launch { pager.animateScrollToPage(it) } }
@@ -253,7 +247,7 @@ private fun AppRoot(appearance: Appearance) {
         HorizontalPager(pager, Modifier.fillMaxSize().padding(inner), beyondViewportPageCount = 1) { page ->
             Page {
                 when (page) {
-                    0 -> homePage(link, root, restarting, actions)
+                    0 -> homePage(link, store, actions)
                     1 -> systemPage(store)
                     2 -> googlePage(store, companion, root, googleActions)
                     else -> settingsPage(store, appearance)

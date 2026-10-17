@@ -1,5 +1,6 @@
 package io.github.tnyfishy.all4hyper.ui
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,23 +31,42 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.draw.alpha
+
+/** True when the theme's background is dark (dark and AMOLED modes). */
+@Composable
+fun isDarkTheme(): Boolean = MaterialTheme.colorScheme.background.luminance() < 0.5f
+
+/**
+ * The color cards sit on. In the dark the lowest container is barely apart from the background,
+ * so cards take a higher one there and stand out from the page.
+ */
+@Composable
+fun cardContainerColor(): Color =
+    if (isDarkTheme()) MaterialTheme.colorScheme.surfaceContainerHigh else MaterialTheme.colorScheme.surfaceContainerLow
+
+/** A thin outline that marks a card's edge in the dark; none in the light, where the tone is enough. */
+@Composable
+fun cardBorder(): BorderStroke? =
+    if (isDarkTheme()) BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f)) else null
 
 /** A titled M3 card; its rows are separated by dividers when they are laid out with [CardDivider]. */
 @Composable
 fun SectionCard(
     title: String,
     modifier: Modifier = Modifier,
-    containerColor: Color = MaterialTheme.colorScheme.surfaceContainerLow,
+    containerColor: Color = cardContainerColor(),
     content: @Composable () -> Unit,
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = containerColor),
         shape = MaterialTheme.shapes.extraLarge,
+        border = cardBorder(),
     ) {
         Column(Modifier.padding(vertical = 8.dp)) {
             Text(
