@@ -30,6 +30,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -115,6 +116,9 @@ private fun RowScope.Tab(item: NavItem, tint: Color, selected: Boolean, onClick:
         Modifier
             .weight(1f)
             .fillMaxHeight()
+            // Clip before selectable so the press ripple is a pill bounded to this tab, instead of
+            // a black rectangle spilling over the bar's rounded ends.
+            .clip(CircleShape)
             .selectable(selected = selected, role = Role.Tab, onClick = onClick),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,

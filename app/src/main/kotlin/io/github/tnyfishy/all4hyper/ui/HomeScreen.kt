@@ -11,13 +11,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.AdminPanelSettings
 import androidx.compose.material.icons.rounded.AutoAwesome
 import androidx.compose.material.icons.rounded.CheckCircle
-import androidx.compose.material.icons.rounded.Extension
 import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.material.icons.rounded.RestartAlt
-import androidx.compose.material.icons.rounded.Security
 import androidx.compose.material.icons.rounded.Warning
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Button
@@ -38,7 +35,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import io.github.tnyfishy.all4hyper.Config
 import io.github.tnyfishy.all4hyper.Link
 import io.github.tnyfishy.all4hyper.R
 import io.github.tnyfishy.all4hyper.Store
@@ -55,9 +51,7 @@ class HomeActions(
 
 fun LazyListScope.homePage(link: Link, store: Store, root: RootState, restarting: Boolean, actions: HomeActions) {
     item { Hero(link, root, restarting, actions) }
-    item { StatusCard(link, root) }
     item { QuickCard(store, actions) }
-    item { WarningCard() }
 }
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class, ExperimentalLayoutApi::class)
@@ -124,64 +118,10 @@ private fun Hero(link: Link, root: RootState, restarting: Boolean, actions: Home
     }
 }
 
-@Composable
-private fun StatusCard(link: Link, root: RootState) {
-    SectionCard(stringResource(R.string.status_title)) {
-        val ready = link as? Link.Ready
-        StatusRow(
-            Icons.Rounded.Extension, stringResource(R.string.status_lsposed),
-            when (link) {
-                is Link.Ready -> stringResource(R.string.status_lsposed_ready, link.framework, link.api)
-                Link.Connecting -> stringResource(R.string.home_connecting)
-                Link.Missing -> stringResource(R.string.status_lsposed_missing)
-            },
-            when (link) {
-                is Link.Ready -> Health.Ok
-                Link.Connecting -> Health.Checking
-                Link.Missing -> Health.Bad
-            },
-        )
-        CardDivider()
-        StatusRow(
-            Icons.Rounded.Security, stringResource(R.string.status_scope),
-            stringResource(if (ready?.scoped == true) R.string.status_scope_ok else R.string.status_scope_missing),
-            when {
-                link is Link.Connecting -> Health.Checking
-                ready?.scoped == true -> Health.Ok
-                else -> Health.Bad
-            },
-        )
-        CardDivider()
-        StatusRow(
-            Icons.Rounded.AdminPanelSettings, stringResource(R.string.status_root),
-            stringResource(
-                when (root) {
-                    RootState.Checking -> R.string.status_root_checking
-                    RootState.Granted -> R.string.status_root_granted
-                    RootState.Denied -> R.string.status_root_denied
-                },
-            ),
-            when (root) {
-                RootState.Checking -> Health.Checking
-                RootState.Granted -> Health.Ok
-                RootState.Denied -> Health.Bad
-            },
-        )
-    }
-}
-
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun QuickCard(store: Store, actions: HomeActions) {
     SectionCard(stringResource(R.string.quick_title)) {
-        ToggleRow(
-            title = stringResource(R.string.master_title),
-            summary = stringResource(R.string.master_summary),
-            checked = store.bool(Config.ENABLED),
-            enabled = store.writable,
-            onChange = { store.put(Config.ENABLED, it) },
-        )
-        CardDivider()
         FlowRow(
             Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 12.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -201,26 +141,6 @@ private fun QuickCard(store: Store, actions: HomeActions) {
                 label = { Text(stringResource(R.string.action_reset)) },
                 leadingIcon = { Icon(Icons.Rounded.RestartAlt, contentDescription = null, modifier = Modifier.size(18.dp)) },
             )
-        }
-    }
-}
-
-@Composable
-private fun WarningCard() {
-    Card(
-        Modifier.fillMaxWidth(),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-            contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
-        ),
-        shape = MaterialTheme.shapes.extraLarge,
-    ) {
-        Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                Icon(Icons.Rounded.Warning, contentDescription = null, modifier = Modifier.size(20.dp))
-                Text(stringResource(R.string.warning_title), style = MaterialTheme.typography.titleSmall)
-            }
-            Text(stringResource(R.string.warning_body), style = MaterialTheme.typography.bodyMedium)
         }
     }
 }

@@ -101,6 +101,19 @@ private fun AppRoot(appearance: Appearance) {
         }
     }
 
+    // Keep the status live while the app is open, with no button press: the LSPosed connection is
+    // re-read every few seconds (cheap, in-process), and root is re-checked until it is granted
+    // (once granted there is nothing to poll; re-checking would only spawn su again).
+    LaunchedEffect(Unit) {
+        while (true) {
+            kotlinx.coroutines.delay(3000)
+            Connection.refresh()
+            if (root != RootState.Granted) {
+                root = if (Root.available()) RootState.Granted else RootState.Denied
+            }
+        }
+    }
+
     fun say(@StringRes message: Int) {
         scope.launch {
             snackbar.currentSnackbarData?.dismiss()

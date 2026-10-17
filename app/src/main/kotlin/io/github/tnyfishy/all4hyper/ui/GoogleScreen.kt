@@ -1,5 +1,7 @@
 package io.github.tnyfishy.all4hyper.ui
 
+import android.content.Intent
+import android.provider.Settings
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.OpenInNew
 import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material.icons.rounded.Extension
 import androidx.compose.material.icons.rounded.Refresh
@@ -26,8 +29,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import io.github.tnyfishy.all4hyper.CompanionState
@@ -47,7 +52,9 @@ class GoogleActions(
 fun LazyListScope.googlePage(link: Link, store: Store, companion: CompanionState, root: RootState, actions: GoogleActions) {
     item { CompanionCard(companion, root, actions) }
     item {
-        FeatureCard(R.string.card_power_key, link, store, actions, Features.googlePower)
+        FeatureCard(R.string.card_power_key, link, store, actions, Features.googlePower) {
+            AssistantShortcut()
+        }
     }
     item {
         FeatureCard(R.string.card_nav, link, store, actions, Features.googleNav, Features.googleVibrate)
@@ -127,6 +134,7 @@ private fun FeatureCard(
     actions: GoogleActions,
     main: Toggle,
     sub: Toggle? = null,
+    extra: @Composable () -> Unit = {},
 ) {
     SectionCard(stringResource(card)) {
         val on = store.bool(main.key)
@@ -147,7 +155,32 @@ private fun FeatureCard(
                 onChange = { actions.toggle(sub.key, it) },
             )
         }
+        extra()
         ScopeChips(GoogleScopes.of(main.key), link)
+    }
+}
+
+/** Opens the system page where Google is picked as the default digital assistant. */
+@Composable
+private fun AssistantShortcut() {
+    val context = LocalContext.current
+    TextButton(
+        onClick = {
+            val open = runCatching {
+                context.startActivity(
+                    Intent(Settings.ACTION_VOICE_INPUT_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+                )
+            }
+            if (open.isFailure) runCatching {
+                context.startActivity(
+                    Intent(Settings.ACTION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+                )
+            }
+        },
+        modifier = Modifier.padding(start = 12.dp),
+    ) {
+        Icon(Icons.AutoMirrored.Rounded.OpenInNew, contentDescription = null, modifier = Modifier.size(18.dp))
+        Text(stringResource(R.string.g_set_assistant), modifier = Modifier.padding(start = 8.dp))
     }
 }
 
