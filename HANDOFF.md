@@ -9,9 +9,8 @@ Một module LSPosed (libxposed API 102) cho Xiaomi HyperOS, kèm app cài đặ
 3. Thẻ **Google**, lấy từ XGoogle (`Leekin2/XGoogle`): nhấn giữ nút nguồn → Gemini/Trợ lý, nhấn giữ thanh điều hướng → Circle to Search, gỡ hạn chế GMS (kèm Quick Share), dịch trực tiếp.
 
 ## Trạng thái repo
-- Mã nguồn nằm ở thư mục `all4hyper/` trong repo `tnyfishy/re-xgoogle`, nhánh `ccr-7fff8167-9dwl6x`.
-- Ba commit: `b73eb77` (module một công tắc AppOps), `114f39d` (toàn bộ hook Security Center + UI), `04f3397` (thẻ Google). Đã push cả ba.
-- **Việc đang dở:** người dùng muốn chuyển project sang repo `tnyfishy/All4Hyper` (repo đã tồn tại, `can_push: true`). Lần xin gắn repo với quyền push bị người dùng **từ chối**, nên chưa chuyển gì. Đã đưa ba lựa chọn (cấp quyền / mình đóng gói bundle hoặc zip để tự push / giữ nguyên) và hỏi có xóa `all4hyper/` khỏi `re-xgoogle` không. Chưa có câu trả lời.
+- Repo chính: `tnyfishy/All4Hyper`, nhánh `main`. Mã nguồn nằm ở gốc repo. Lịch sử được tách từ thư mục `all4hyper/` của `tnyfishy/re-xgoogle` (nhánh `ccr-7fff8167-9dwl6x`) bằng `git subtree split`.
+- Bản sao cũ vẫn còn ở `re-xgoogle/all4hyper/`; chưa xóa vì chưa được yêu cầu.
 - Đổi tên repo GitHub: không có công cụ, người dùng tự đổi trong Settings.
 
 ## Cấu trúc `all4hyper/`
